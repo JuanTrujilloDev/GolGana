@@ -63,6 +63,48 @@ Debido al sistema actual que utilizan estos sitios, es posible que algunos de el
 
 # Plan del proyecto:
 
+## Objetivo del proyecto:
+
+Proporcionar una plataforma donde los encargados de administrar canchas de fútbol y microfútbol  puedan publicar y administrar sus servicios y los usuarios que quieran reservas uno de estos servicios lo puedan hacer, facilitando a los administradores de estos servicios obtener clientes con facilidad y a los usuarios reservar servicios de manera rápida y segura.
+
+## Detalle del proyecto:
+
+### Descripcion funcional:
+
+Administrar de manera más eficiente los espacios deportivos que publiquen los administradores  asegurando las reservas de los clientes mediante un sistema de cancelación anticipada para asegurar la reserva del espacio deportivo.
+
+### Analisis de oportunidad:
+
+1. Reservas de los espacios deportivos de forma óptima 
+2. Facilitar la administración de los espacios deportivos
+3. Asegurar el reembolso al cliente en caso de que se cumpla el plazo de la cancelación anticipada 
+
+### Analisis legal:
+
+- Todos los datos ingresados en el sistema por parte de las personas serán protegidos por la Ley 1581 de 2012.
+
+- En todas las ventas se les deberá aplicar el impuesto al consumo por el Decreto 1069 del 28 de junio.
+
+# Alcance de proyecto:
+
+## 1. Antecedentes:
+
+Una de las principales problemáticas a la hora de apartar una cancha de Microfútbol y Fútbol es encontrar una cancha disponible en una hora específica, actualmente los negocios gestionan las canchas de manera manual, creando situaciones en donde los clientes no conocen la disponibilidad de las canchas que tienen los negocios, además, en algunos casos, los espacios deportivos no tienen la certeza de que los clientes vayan a utilizar las canchas después de apartarla, porque no hay dinero de por medio, solamente la palabra de los clientes.
+
+## 2. Objetivos:
+
+- Desarrollar una app web en donde los clientes puedan conocer la disponibilidad de las canchas en los espacios deportivos.
+
+- Emplear un medio de pago en línea, facilitando a los administradores el uso certero de las canchas apartadas por los clientes, evitando posibles pérdidas futuras.
+
+- Emplear un medio de devolución del dinero aportado por los clientes, separando las canchas, si se solicita el respectivo reembolso, tener en cuenta pedir el reembolso faltando 5 horas de cumplir la hora de uso, en caso de que se solicite después de la hora mínima, no se podrá realizar el reembolso.
+
+- Facilitar la separación de la chancha tanto para el usuario como para los administradores.
+
+## 3. Alcance:
+
+Crear una aplicación web para los centros deportivos, ésta contará con las canchas de Microfútbol y Fútbol que hayan registrado dichos centros deportivos, las personas interesadas en hacer uso de estas canchas, deberán realizar un adelanto del 50% del costo total de la cancha, las reservas se tendrán que hacer con 5 horas de antelación para poder solicitar algún reembolso.
+
 
 
 
