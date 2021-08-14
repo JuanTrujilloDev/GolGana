@@ -22,6 +22,7 @@ class UserCreationFormWithEmail(UserCreationForm):
         return email
 
 
+
 class EmailForms(forms.ModelForm):
     email = forms.EmailField(required=True) 
 

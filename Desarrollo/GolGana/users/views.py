@@ -1,16 +1,19 @@
+from users.models import PerfilUsuario
 from django.shortcuts import render
 from django.contrib.auth.models import Group
 from django.urls.base import reverse_lazy
 from .forms import UserCreationFormWithEmail
-from django.views.generic import CreateView
+from django.views import generic
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-class createUserView(CreateView):
+class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
-    template_name = 'users/signup.html'
+    template_name = 'registration/signup.html'
 
     def get_success_url(self):
-        return reverse_lazy('user:signup')+'?ok'
+        return reverse_lazy('login')+'?register'
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -19,8 +22,12 @@ class createUserView(CreateView):
         user.groups.add(group)
         return super().form_valid(form)
 
+@method_decorator(login_required, name='dispatch')
+class ProfileUpdate(generic.TemplateView):
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/profile_form.html'
 
-            
+       
 
 
 

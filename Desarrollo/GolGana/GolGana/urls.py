@@ -19,5 +19,6 @@ from users.urls import post_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(post_patterns))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include(post_patterns))
 ]

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      {% if 'register' in request.GET%}
+      <p style="color:green;">Usuario registrado correctamente, ya puedes identificarte</p>
+      {% endif %}
+
+<form action="" method="post">{% csrf_token %}
+          <h3 >Iniciar sesión</h3>
+          {% if form.non_field_errors %}
+            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+          {% endif %}
+          <p>
+            <input type="text" name="username" autofocus maxlength="254" required
+              id="id_username"  placeholder="Nombre de usuario"/>
+          </p>
+          <p>
+            <input type="password" name="password" required
+              id="id_password"  placeholder="Contraseña"/>
+          </p>
+          <p><input type="submit"  value="Acceder"></p>
+        </form>
+    
+</body>
+</html>
