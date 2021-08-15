@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 
 class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
-    template_name = 'registration/signup.html'
+    template_name = 'registration/login.html'
 
     def get_success_url(self):
         return reverse_lazy('login')+'?register'
@@ -23,7 +23,7 @@ class createUserView(generic.CreateView):
 
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(generic.TemplateView):
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('user:profile')
     template_name = 'registration/profile_form.html'
 
        
