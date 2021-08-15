@@ -12,7 +12,7 @@ class createUserView(generic.CreateView):
     template_name = 'registration/signup.html'
 
     def get_success_url(self):
-        return reverse_lazy('user:login')+'?register'
+        return reverse_lazy('login')+'?register'
 
     def form_valid(self, form):
         user = form.save(commit=False)
