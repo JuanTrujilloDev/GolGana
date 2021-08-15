@@ -15,7 +15,7 @@ class PerfilUsuario (models.Model):
 
 
     def get_absolute_url(self):
-        return reverse("model_detail", kwargs={"pk": self.pk})
+        return reverse("perfil-usuario", kwargs={"slug": self.slug})
 
 
     def save(self, *args, **kwargs):

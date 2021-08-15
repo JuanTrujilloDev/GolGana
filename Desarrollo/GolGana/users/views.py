@@ -6,10 +6,11 @@ from .forms import UserCreationFormWithEmail
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.forms import AuthenticationForm
 
 class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
-    template_name = 'registration/login.html'
+    template_name = 'registration/sign-up.html'
 
     def get_success_url(self):
         return reverse_lazy('login')+'?register'
@@ -20,6 +21,9 @@ class createUserView(generic.CreateView):
         user.save() 
         user.groups.add(group)
         return super().form_valid(form)
+
+
+    
 
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(generic.TemplateView):
