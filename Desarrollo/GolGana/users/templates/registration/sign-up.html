@@ -1,6 +1,6 @@
 {% extends 'GolGana/base.html' %}
 
-
+{% load crispy_forms_tags %}
 {% block content %}
 <section>
     <form action="" method="post">{% csrf_token %}
@@ -11,7 +11,7 @@
                         <div class="login-snip"> <a id="tab-1" name="tab" class="sign-in tab" href="{% url 'user:login' %}">Login</a><a href="{% url 'user:signup' %}" class="tab">Sign Up</a>
                             <div class="login-space">
                                 <div class="sign-up-form">
-                                    {{form.as_p}}
+                                    {{form|crispy}}
                                     <input type="submit" name="submit" id="" value="Registrar">
                                 </div>
                             </div>
