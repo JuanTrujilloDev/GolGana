@@ -3,30 +3,54 @@
 {% load static %}
 
 {% block content %}
-<section class="container-fluid justify-content-center">
-    <form action="" method="post">{% csrf_token %}
-        <div class="row">
-            <div class="col-md-5 mx-auto p-0">
-                    <div class="login-box">
-                        <div class="login-snip"><img class="logo" src="{% static 'GolGana/img/GolGana_blanco.png' %}"><a id="tab-1" name="tab" class="sign-in tab" href="{% url 'user:login' %}">Login</a><a href="{% url 'user:signup' %}" class="tab">Sign Up</a>
-                            <div class="login-space">
-                                <div class="login">
-                                          {% if form.non_field_errors %}
-                                            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
-                                        {% endif %}
-                                    <div class="group"> <label for="user" class="label">Usuario</label> <p><input id="id_username" name="username" type="text" class="input"></p>  </div>
-                                    <div class="group"> <label for="pass" class="label">Contraseña</label> <p><input id="password"  name="password" type="password" class="input" data-type="password"></p>  </div>
-                                    <div class="group"> <input id="check" type="checkbox" class="check" checked> <label for="check"><span class="icon"></span> Acepta términos y condiciones</label> </div>
-                                    <div class="group"> <p><input type="submit" class="button" value="Sign Up"></p>  </div>
-                                    <div class="hr"></div>
-                                    <div class="foot"> <a class="etiqueta"href="#">¿Olvidaste tu contraseña?</a> </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
+
+<main class="login-page d-flex align-items-center">
+
+    <div class="login-block">
+      <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_blanco.png' %}" alt="GolGana">
+      <h1>LOG IN</h1>
+
+      <form action="." method="POST"> {% csrf_token %}
+        <div class="form-group">
+            {% if form.non_field_errors %}
+            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+          {% endif %}
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
+            <input type="text" class="form-control" name="username" placeholder="Ingresa tu usuario">
+          </div>
         </div>
-    </form>
-</section>
+        
+        <hr class="hr-xs">
+
+        
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
+            <input type="password" name="password" class="form-control" placeholder="Ingresa tu contraseña">
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-custom btn-block" type="submit">Log in</button>
+
+        <div class="login-footer">
+          <h6>O INGRESA MEDIANTE:</h6>
+          <ul class="social-icons">
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="google" href="#"><i class="fa fa-google"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+          </ul>
+        </div>
+
+      </form>
+      <div class="login-links">
+        <p class="text-center">¿No tienes cuenta aún? UNETE! <a class="txt-brand" href="{% url 'user:signup' %}">Registro</a></p>
+      </div>
+    </div>
+
+    
+
+  </main>
+
 
 {% endblock  %}

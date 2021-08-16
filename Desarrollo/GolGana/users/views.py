@@ -22,6 +22,8 @@ class createUserView(generic.CreateView):
         user.groups.add(group)
         return super().form_valid(form)
 
+   
+
 
     
 

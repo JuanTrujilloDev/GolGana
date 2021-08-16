@@ -1,0 +1,13 @@
+.body{
+    font-family: "Inter",sans-serif
+}
+
+
+
+.btn-custom{
+    background-color:#7ab92a!important;
+    border-color:#4f820a!important;
+    border-radius: 12%!important;
+    font-weight: bold!important;
+    
+}
