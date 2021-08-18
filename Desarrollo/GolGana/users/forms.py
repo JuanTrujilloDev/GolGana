@@ -1,7 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.forms import widgets
-from .models import PerfilUsuario
 from django.contrib.auth.models import User
 
 class UserCreationFormWithEmail(UserCreationForm):
@@ -14,12 +12,20 @@ class UserCreationFormWithEmail(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
-
+    #verifica que el email no este registrado
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email.lower()).exists():
             raise forms.ValidationError("El email ya esta registrado")
         return email
+
+    
+    #verifica que el usuario no este tomado
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.filter(username=username.lower()).exists():
+            raise forms.ValidationError("El username ya esta registrado")
+        return username    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,7 +45,7 @@ class EmailForms(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if 'email' in self.changed_data:
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(email=email.lower()).exists():
                 raise forms.ValidationError("El email ya esta registrado")
         return email
 
