@@ -12,6 +12,8 @@ class PerfilUsuario (models.Model):
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to = 'usuario')    
 
+    ###FALTA NUMERO DE CONTACTO
+
 
 
     def get_absolute_url(self):
