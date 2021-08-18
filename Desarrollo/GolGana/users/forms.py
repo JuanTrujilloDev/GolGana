@@ -15,7 +15,7 @@ class UserCreationFormWithEmail(UserCreationForm):
     #verifica que el email no este registrado
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email.lower()).exists():
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("El email ya esta registrado")
         return email
 
@@ -23,7 +23,7 @@ class UserCreationFormWithEmail(UserCreationForm):
     #verifica que el usuario no este tomado
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        if User.objects.filter(username=username.lower()).exists():
+        if User.objects.filter(username__iexact=username).exists():
             raise forms.ValidationError("El username ya esta registrado")
         return username    
     
@@ -45,7 +45,7 @@ class EmailForms(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if 'email' in self.changed_data:
-            if User.objects.filter(email=email.lower()).exists():
+            if User.objects.filter(email__iexact=email).exists():
                 raise forms.ValidationError("El email ya esta registrado")
         return email
 
