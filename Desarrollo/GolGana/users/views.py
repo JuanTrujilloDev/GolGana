@@ -15,7 +15,7 @@ class createUserView(generic.CreateView):
     template_name = 'registration/sign-up.html'
 
     def get_success_url(self):
-        return reverse_lazy('login')
+        return reverse_lazy('user:login')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
