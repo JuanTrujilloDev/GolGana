@@ -1,14 +1,18 @@
-from django.db.models.signals import post_save, pre_delete
+
+from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from .models import PerfilUsuario
+from .models import PerfilUsuario, TipoUsuario
 
 
 @receiver(post_save, sender=User)
-def new_perfil(sender, instance, created, **kwargs):
+def newPerfil(sender, instance, created, **kwargs):
+    
     if created:
         PerfilUsuario.objects.create(usuario=instance)
 
 @receiver(post_save, sender=User) 
-def guardar_perfil(sender, instance, **kwargs):
+def guardarPerfil(sender, instance, **kwargs):
+        tipo = TipoUsuario.objects.get(nombre="Cliente")
+        instance.perfilusuario.tipo_usuario = tipo
         instance.perfilusuario.save()

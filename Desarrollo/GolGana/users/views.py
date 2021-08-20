@@ -15,13 +15,6 @@ class createUserView(generic.CreateView):
     def get_success_url(self):
         return reverse_lazy('login')+'?register'
 
-    def form_valid(self, form):
-        user = form.save(commit=False)
-        group = Group.objects.get(name='UsuarioCliente')
-        user.save() 
-        user.groups.add(group)
-        return super().form_valid(form)
-
    
 
 
