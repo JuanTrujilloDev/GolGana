@@ -1,0 +1,23 @@
+{% block tarjeta1 %}
+{% load static %}
+<section class="tarjeta1 container">
+    <div class="row mt-5">
+        <div class="col-md-6 col-sm-12 mx-auto mb-4">
+          <h1 class="fw-bold mb-4" style="font-size:4rem;">  
+            Aqui va un titulo
+          </h1>
+          <p style="font-size:2rem; font-style:italic">
+            Aqui va la descripción de algo bien mamalon.
+          </p>
+        </div>
+        <div class="col-md-6 col-sm-12 mx-auto mb-4">
+          <div class="card" style="width: 15rem; height: 30%;">
+            <img src="{% static 'GolGana/img/2.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p  style="font-size:2rem; font-style:italic">otra descripcion bien perrona </p>
+            </div>
+          </div>
+        </div>
+    </div>   
+</section>
+{% endblock %}

@@ -1,0 +1,181 @@
+body{
+    font-family: "Inter", sans-serif !important;
+}
+.logo{
+    width: 150px;
+    height: 50px;
+}
+
+.navbar a{
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+@media (min-width: 994px) {
+    .navbarleon{
+        background: transparent !important;
+    }
+
+    .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")!important;
+    }
+
+    .navbar-light{
+        background-color: white!important;
+
+    }
+
+    .navbar-light a{
+        color:black!important;
+        font-weight: bold;
+    }
+
+    .logo2{
+        content:url('../img/GolGana_6.png')!important;
+        transition: 0.2s linear;
+    }
+    
+    .logo{
+        content:url('../img/GolGana_6_blanco.png')!important;
+        transition: 0.2s linear;
+    }
+
+    .navbarleon a{
+        color:white!important;
+        font-weight: bold;
+    }
+
+}
+
+.navbarleon{
+    background-color:white;
+}
+
+.navbarleon a{
+    color:black;
+    font-weight: bold;
+}
+
+.navbar-light{
+    background-color: white;
+}
+
+.navbar-light a{
+    color:black;
+    font-weight: bold;
+}
+
+.navbarleon button{
+    border-color:rgb(145, 145, 145)!important;
+}
+
+.navbarleon button span{
+    color: rgb(145, 145, 145)!important;
+}
+
+.logo2{
+    content:url('../img/GolGana_6.png')!important;
+    transition: 0.2s linear;
+}
+
+.logo{
+    content:url('../img/GolGana_6.png');
+    transition: 0.2s linear;
+}
+
+
+
+
+/*<--nav-->*/
+.bannerContainer {
+    position:relative;     
+}
+.carousel {
+    position:absolute;
+    top:0;    
+}
+.carousel-inner{
+    filter: brightness(30%);
+    width:100%;
+    max-height: 720px!important;
+  }
+
+.carrusel{
+    padding-left: 0!important;
+    padding-right: 0!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    
+}
+
+.carousel-item .active{
+    max-height: 20vh!important;
+}
+
+/*<--lugar-->*/
+.googlemapa{
+
+    overflow: hidden !important;
+    height: 80vh;
+    width: 100%;
+    margin-bottom: 5%;
+}
+.googlemapa iframe{
+
+    width: 100%;
+    height: 90%;
+}
+.mapagoogle{
+    background-color: #f4f4f4 !important;
+}
+
+/*<--tarjetas-->*/
+.card{
+    font-size: 1.3rem !important;
+    text-align: center !important;
+    min-width: 20vw!important;
+    margin-bottom: 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.texto{
+    align-items: center !important;
+    padding: 70px 20px;
+}
+
+/*<--tarjetas-->*/
+.cards-1 .card {
+    display: inline-block;
+    max-width: 17.5rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.cards-1 div.card:nth-child(3n+2) {
+    margin-right: 2.5rem;
+    margin-left: 2.5rem;
+}
+
+img.football{  
+    margin-top: 50% !important;
+    max-width: 250% !important;
+}
+    
+img.football-field{
+    margin-top: 50% !important;
+    max-width: 250% !important;
+}
+
+img.call{
+    margin-top: 50% !important;
+    max-width: 250% !important;
+}
+/*<--Footer-->*/
+.footerleon{
+    background-color: #34495e;
+}
+
+section.container{
+    background-color: #82e0ab;
+}
+
+
