@@ -4,10 +4,12 @@
 
 {% block content %}
 
+
+<section class="d-flex fondo-login">
 <main class="login-page d-flex align-items-center">
 
     <div class="login-block">
-      <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_blanco.png' %}" alt="GolGana">
+      <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
       <h1>REGISTRO JUGADORES</h1>
 
       <form action="." method="POST"> {% csrf_token %}
@@ -61,26 +63,24 @@
         
         </div>
 
-        <button class="btn btn-primary btn-custom btn-block" type="submit">REGISTRO</button>
+        <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
 
         <div class="login-footer">
           <h6>O REGISTRATE MEDIANTE:</h6>
           <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a class="google" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-google"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
           </ul>
         </div>
 
       </form>
       <div class="login-links">
-        <p class="text-center">¿Ya tienes una cuenta? INGRESA! <a class="txt-brand" href="{% url 'user:login' %}">Login</a></p>
+        <p class="text-center">¿Ya tienes una cuenta? ¡INGRESA! <a class="txt-brand" href="{% url 'user:login' %}">Login</a></p>
       </div>
     </div>
 
     
 
   </main>
-
+</section>
 
 {% endblock  %}
