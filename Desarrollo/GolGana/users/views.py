@@ -1,9 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from users.models import PerfilUsuario
-from django.shortcuts import render
-from django.contrib.auth.models import Group
 from django.urls.base import reverse_lazy
-from .forms import UserCreationFormWithEmail
+from .forms import FormWithCaptcha, UserCreationFormWithEmail
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -18,10 +15,13 @@ class createUserView(generic.CreateView):
         return reverse_lazy('user:login')
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('user:profile')
-
+        if request.user.is_authenticated: return redirect('user:profile')
         return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["capcha"] = FormWithCaptcha
+        return context
     
 
 @method_decorator(login_required, name='dispatch')

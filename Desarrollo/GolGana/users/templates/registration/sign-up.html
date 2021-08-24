@@ -59,14 +59,19 @@
             {{form.password2}}
           </div>
         </div>
-
+        </div>
         
+        <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
+        <div class="container mt-5">
+        {% for i in capcha %}
+        {{i}}
+        {% endfor %}
         </div>
 
-        <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
 
         <div class="login-footer">
           <h6>O REGISTRATE MEDIANTE:</h6>
+          
           <ul class="social-icons">
             <li><a class="google" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-google"></i></a></li>
           </ul>

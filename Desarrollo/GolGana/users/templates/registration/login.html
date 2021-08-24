@@ -33,7 +33,11 @@
         </div>
 
         <button class="btn btn-primary btn-custom btn-block" type="submit">Ingresar</button>
-
+        <div class="container mt-5">
+        {% for i in capcha %}
+        {{i}}
+        {% endfor %}
+        </div>
         <div class="login-footer">
           <h6>O INGRESA MEDIANTE:</h6>
           <ul class="social-icons">
