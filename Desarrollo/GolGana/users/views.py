@@ -18,59 +18,6 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 from django.core.mail import send_mail
 
-#Funcion vista de registro con envio de email
-def register(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        if request.method == 'POST':
-            form = UserCreationFormWithEmail(request.POST)
-            # se crea a partir del modelo de usuario
-            if form.is_valid():
-                # Gguarda el usurio en la base de datos pero con is_active = False
-                user = form.save(commit=False)
-                user.is_active = False
-                user.save()
-
-                # Send confirmation email
-                current_site = get_current_site(request)
-                subject = 'Activate Your ' + current_site.domain + ' Account'
-                message = render_to_string('registration/email_confirmation.html',
-                    {
-                        "domain": current_site.domain,
-                        "user": user,
-                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                        "token": default_token_generator.make_token(user),
-                    },
-                )
-                to_email = form.cleaned_data.get('email')
-                send_mail(subject, message, 'golganaco@gmail.com', [to_email])
-
-                # Redirect user to login
-                messages.success(request, 'Por favor confima tu email antes de ingresar.')
-                return HttpResponseRedirect(reverse('user:login'))
-            else:
-            
-                if form.errors:
-                    for key, values in form.errors.as_data().items():
-                        if key == 'username':
-                            messages.info(request, 'Error input fields')
-                            break
-                        else:
-                            for error_value in values:
-                                print(error_value)
-                                messages.info(request, '%s' % (error_value.message))
-
-                return HttpResponseRedirect(reverse('user:register'))
-        else:
-            form = UserCreationFormWithEmail()
-
-            context = {
-                'form': form,
-                'form2': FormWithCaptcha
-            }
-            return render(request, 'registration/sign-up.html', context)
-
 #Funcion vista de activacion de cuenta
 def activate(request, uidb64, token):
     try:
@@ -89,8 +36,6 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-"""----------Vista basada en clase de registro ya no es necesaria--------
-
 class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
     template_name = 'registration/sign-up.html'
@@ -106,8 +51,28 @@ class createUserView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["capcha"] = FormWithCaptcha
-        return contex
-    ----------------------------------------------------------------------"""
+        return context
+
+    def form_valid(self, form):
+        # Gguarda el usurio en la base de datos pero con is_active = False
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
+        # Send confirmation email
+        current_site = get_current_site(self.request)
+        subject = 'Activate Your ' + current_site.domain + ' Account'
+        message = render_to_string('registration/email_confirmation.html',
+        {
+        "domain": current_site.domain,
+        "user": user,
+        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+        "token": default_token_generator.make_token(user),},
+        )
+        to_email = form.cleaned_data.get('email')
+        send_mail(subject, message, 'golganaco@gmail.com', [to_email])
+
+        return HttpResponseRedirect(reverse('user:login'))    
+
 
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(LoginRequiredMixin, generic.TemplateView):

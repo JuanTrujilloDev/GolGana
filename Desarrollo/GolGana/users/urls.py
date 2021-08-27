@@ -1,10 +1,9 @@
 from django.urls import path
-from .views import register, ProfileUpdate, activate
+from .views import createUserView, ProfileUpdate, activate
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import FormWithCaptcha
 post_patterns = ([
-    #path('registro/', createUserView.as_view(), name="signup"),
-    path('register/', register, name='register'),
+    path('register/', createUserView.as_view(), name='signup'),
     path('activate/<uidb64>/<token>/',activate, name='activate'),
 
     path('accounts/profile/', ProfileUpdate.as_view(), name='profile'),
