@@ -16,10 +16,17 @@ class UserCreationFormWithEmail(UserCreationForm):
 
     #verifica que el email no este registrado
     def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if User.objects.filter(email__iexact=email).exists():
-            raise forms.ValidationError("El email ya esta registrado")
-        return email
+        email_passed = self.cleaned_data.get("email")
+        email_already_registered = User.objects.filter(email = email_passed).exists()
+        user_is_active = User.objects.filter(email = email_passed, is_active = 1)
+        if email_already_registered and user_is_active:
+            #print('email_already_registered and user_is_active')
+            raise forms.ValidationError("Email already registered.")
+        elif email_already_registered:
+            #print('email_already_registered')
+            User.objects.filter(email = email_passed).delete()
+
+        return email_passed
 
     
     #verifica que el usuario no este tomado
@@ -36,6 +43,7 @@ class UserCreationFormWithEmail(UserCreationForm):
             visible.field.widget.attrs['class'] = "form-control"
 
 
+"""--------------Creo que esto sobra-------
 
 class EmailForms(forms.ModelForm):
     email = forms.EmailField(required=True) 
@@ -51,7 +59,7 @@ class EmailForms(forms.ModelForm):
                 raise forms.ValidationError("El email ya esta registrado")
         return email
 
-
+---------------------------------------------"""
 
 class FormWithCaptcha(forms.Form):
     captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
