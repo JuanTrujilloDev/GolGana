@@ -65,7 +65,8 @@ class createUserView(generic.CreateView):
         )
         to_email = form.cleaned_data.get('email')
         send_mail(subject, message, 'golganaco@gmail.com', [to_email])
-
+        
+        messages.success(self.request, 'Porfavor confirma tu email antes de ingresar.')
         return HttpResponseRedirect(reverse('user:login'))    
 
 class CLoginView(LoginView):
