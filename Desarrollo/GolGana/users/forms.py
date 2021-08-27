@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Invisible
 
 class UserCreationFormWithEmail(UserCreationForm):
     email = forms.EmailField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu correo electronico'}))
@@ -53,4 +54,4 @@ class EmailForms(forms.ModelForm):
 
 
 class FormWithCaptcha(forms.Form):
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
