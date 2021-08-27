@@ -12,6 +12,9 @@
       <h1>LOG IN</h1>
 
       <form action="." method="POST"> {% csrf_token %}
+        {% for message in messages %}
+            <p class="item" id="messages">{{ message }}</p>
+        {% endfor%}
         <div class="form-group">
             {% if form.non_field_errors %}
             <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
@@ -47,7 +50,7 @@
 
       </form>
       <div class="login-links">
-        <p class="text-center">¿No tienes cuenta aún? UNETE! <a class="txt-brand" href="{% url 'user:signup' %}">Registro</a></p>
+        <p class="text-center">¿No tienes cuenta aún? UNETE! <a class="txt-brand" href="{% url 'user:register' %}">Registro</a></p>
       </div>
     </div>
 

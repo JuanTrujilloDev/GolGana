@@ -1,0 +1,10 @@
+{% autoescape off %}
+Hola {{ user.username }} Bienvenido a GolGana,
+
+Gracias por hacer parte de esta comunidad
+Verifica tucuenta para continuar tu registro :)
+
+
+
+http://{{ domain }}{% url 'user:activate' uidb64=uid token=token %}
+{% endautoescape %}
