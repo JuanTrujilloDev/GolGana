@@ -1,18 +1,19 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Invisible
+from captcha.widgets import ReCaptchaV2Invisible, ReCaptchaV2Checkbox
 
 class UserCreationFormWithEmail(UserCreationForm):
     email = forms.EmailField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu correo electronico'}))
     username = forms.CharField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu usuario'}))
     password1 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password' , 'placeholder':'Digita una contraseña'}))
     password2 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder':'Confirma tu contraseña'}))
+    captcha = ReCaptchaField(required = True, widget= ReCaptchaV2Checkbox(attrs={'data-size':'normal', 'required':True}))
     
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "email", "password1", "password2", "captcha")
 
     #verifica que el email no este registrado
     def clean_email(self):
@@ -35,7 +36,14 @@ class UserCreationFormWithEmail(UserCreationForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = "form-control"
 
+class LoginCaptcha(AuthenticationForm):
+    captcha = ReCaptchaField(required = True, widget= ReCaptchaV2Checkbox(attrs={'data-size':'normal', 'required':True}))
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'captcha']
+    
 
+    
 """--------------Creo que esto sobra-------
 
 class EmailForms(forms.ModelForm):
@@ -54,5 +62,3 @@ class EmailForms(forms.ModelForm):
 
 ---------------------------------------------"""
 
-class FormWithCaptcha(forms.Form):
-    captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
