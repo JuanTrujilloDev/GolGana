@@ -15,7 +15,12 @@
           <a class="nav-link active " aria-current="page" href="#">Registra tu cancha</a>
         </li>
         <li class="nav-item">
+          {% if not user.is_authenticated %}
           <a class="btn btn-primary" aria-current="page" href="{% url 'user:login' %}" >Iniciar sesion</a>
+          {% else %}
+          <a class="btn btn-success " aria-current="page" href="{% url 'user:profile' %}" >Perfil</a>
+          {% endif %}
+          
         </li>
     </div>
   </div>

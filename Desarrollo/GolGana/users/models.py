@@ -17,13 +17,16 @@ class TipoUsuario(models.Model):
         return self.nombre
 
 
+def custom_upload_to(instance, filename):
+    old_intance = PerfilUsuario.objects.get(pk=instance.pk)
+    return 'profiles/image/' + filename
 
-class PerfilUsuario (models.Model):
+class PerfilUsuario(models.Model):
     usuario = models.OneToOneField(User, on_delete= models.CASCADE)
     nombre = models.CharField(max_length=60, verbose_name= "Nombre Usuario")
     apellido = models.CharField(max_length=80, verbose_name="Apellido Usuario")
     slug = models.SlugField(unique=True)
-    image = models.ImageField(upload_to = 'usuario')
+    image = models.ImageField(upload_to = custom_upload_to)
     tipo_usuario = models.ForeignKey(TipoUsuario, on_delete= models.SET_NULL, null=True, unique=False)
     telefono = models.CharField(max_length= 10 , verbose_name= "Numero telefonico")
 

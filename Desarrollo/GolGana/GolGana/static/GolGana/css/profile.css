@@ -1,0 +1,28 @@
+section {
+    background-color: rgb(255, 255, 255) ;
+}
+section .profileName{
+    color: rgb(1, 39, 250);
+}
+section .profileEmail, .profileAddress, .profileCity{
+    color: gray;
+}
+section .userCard{
+    box-shadow:  0 0 10px rgba(0,0,0,0.22);
+    border: none;
+    height: 100vh;
+}
+section .img-radius{
+    border-radius: 50px;    
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+section .informationCard{
+    padding: 10px;
+    margin-left: 10%;
+    text-align: left;
+    width: 80%;
+    height: 100%;
+}
+

@@ -3,53 +3,66 @@
 {% load static %}
 
 {% block content %}
-
 <section class="d-flex fondo-login">
-<main class="login-page d-flex align-items-center">
-
-    <div class="login-block">
-      <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
-      <h1>LOG IN</h1>
-      <form action="." method="POST"> {% csrf_token %}
+    <main class="login-page d-flex align-items-center">
+        <div class="login-block">
+            <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
+            <h1>LOG IN</h1>
+            <form action="." method="POST">
+                {% csrf_token %}
         {% for message in messages %}
-            <p class="item" id="messages">{{ message }}</p>
-        {% endfor%}
-        <div class="form-group">
-            {% if form.non_field_errors %}
-            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
-          {% endif %}
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
-            <input type="text" class="form-control" name="username" placeholder="Ingresa tu usuario">
-          </div>
+                <p class="item" id="messages">{{ message }}</p>
+                {% endfor%}
+                <div class="form-group">
+                    {% if form.non_field_errors %}
+                    <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+                    {% endif %}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user ti-user"></i>
+                            </span>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="username"
+                                placeholder="Ingresa tu usuario"
+                            >
+                        </div>
+                    </div>
+                    <hr class="hr-xs">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock ti-unlock"></i>
+                        </span>
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Ingresa tu contraseña"
+                        >
+                    </div>
+                </div>
+                {{form.captcha}}
+                <button class="btn btn-primary btn-custom btn-block" type="submit">Ingresar</button>
+                <div class="login-footer">
+                    <h6>O INGRESA MEDIANTE:</h6>
+                    <ul class="social-icons">
+                        <li>
+                            <a class="google" href="{% url 'social:begin' 'google-oauth2' %}">
+                                <i class="fa fa-google"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            <div class="login-links">
+                <p class="text-center">¿No tienes cuenta aún? UNETE!
+                    <a class="txt-brand" href="{% url 'user:signup' %}">Registro</a>
+                </p>
+            </div>
         </div>
-        
-        <hr class="hr-xs">        
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-            <input type="password" name="password" class="form-control" placeholder="Ingresa tu contraseña">
-          </div>
-        </div>
-        {{form.captcha}}
-        <button class="btn btn-primary btn-custom btn-block" type="submit">Ingresar</button>
-        
-        <div class="login-footer">
-          <h6>O INGRESA MEDIANTE:</h6>
-          <ul class="social-icons">
-            <li><a class="google" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-google"></i></a></li>
-          </ul>
-        </div>
-
-      </form>
-      <div class="login-links">
-        <p class="text-center">¿No tienes cuenta aún? UNETE! <a class="txt-brand" href="{% url 'user:signup' %}">Registro</a></p>
-      </div>
-    </div>
-
-    
-
-  </main>
+    </main>
 </section>
 <!--CHUPEME LA PIJA MERGE-->
 {% endblock  %}

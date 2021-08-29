@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from django.forms.widgets import ClearableFileInput
+from .models import PerfilUsuario
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Invisible, ReCaptchaV2Checkbox
 
@@ -43,8 +45,15 @@ class LoginCaptcha(AuthenticationForm):
         fields = ['username', 'password', 'captcha']
     
 
-    
-"""--------------Creo que esto sobra-------
+
+class ProfileUpdateForms(forms.ModelForm):
+    class Meta:
+        model = PerfilUsuario
+        fields = ['nombre', 'apellido', 'image', 'telefono']
+
+
+
+
 
 class EmailForms(forms.ModelForm):
     email = forms.EmailField(required=True) 
@@ -60,5 +69,11 @@ class EmailForms(forms.ModelForm):
                 raise forms.ValidationError("El email ya esta registrado")
         return email
 
----------------------------------------------"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = "form-control form-control-lg"
+
+
 

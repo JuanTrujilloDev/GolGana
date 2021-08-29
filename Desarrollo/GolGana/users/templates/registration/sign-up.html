@@ -3,87 +3,85 @@
 {% load static %}
 
 {% block content %}
-
-
 <section class="d-flex fondo-login">
-<main class="login-page d-flex align-items-center">
-
-    <div class="login-block">
-      <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
-      <h1>REGISTRO JUGADORES</h1>
-
-      <form action="." method="POST"> {% csrf_token %}
+    <main class="login-page d-flex align-items-center">
+        <div class="login-block">
+            <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
+            <h1>REGISTRO JUGADORES</h1>
+            <form action="." method="POST">
+                {% csrf_token %}
         {% for message in messages %}
-            <p class="item" id="messages">{{ message }}</p>
-        {% endfor%}
-        <div class="form-group">
-        <div class="form-group">
-           {% for error in form.username.errors %}
-            <p style="color:red; float:left; text-align: left;">{{error}}</p>
-           {% endfor %}
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
-            {{form.username}}
-          </div>
-        </div>
-        
-        <hr class="hr-xs">
-
-        <div class="form-group">
-            {% for error in form.email.errors %}
-            <p style="color:red; float:left; text-align: left;">{{error}}</p>
-           {% endfor %}
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              {{form.email}}
+                <p class="item" id="messages">{{ message }}</p>
+                {% endfor%}
+                <div class="form-group">
+                    <div class="form-group">
+                        {% for error in form.username.errors %}
+                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
+                        {% endfor %}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user ti-user"></i>
+                            </span>
+                            {{form.username}}
+                        </div>
+                    </div>
+                    <hr class="hr-xs">
+                    <div class="form-group">
+                        {% for error in form.email.errors %}
+                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
+                        {% endfor %}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                            {{form.email}}
+                        </div>
+                    </div>
+                    <hr class="hr-xs">
+                    <div class="form-group">
+                        {% for error in form.password1.errors %}
+                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
+                        {% endfor %}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock ti-unlock"></i>
+                            </span>
+                            {{form.password1}}
+                        </div>
+                    </div>
+                    <hr class="hr-xs">
+                    <div class="form-group">
+                        {% for error in form.password2.errors %}
+                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
+                        {% endfor %}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock ti-unlock"></i>
+                            </span>
+                            {{form.password2}}
+                        </div>
+                    </div>
+                </div>
+                {{form.captcha}}
+                <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
+                <div class="container mt-5">
+                    <div class="login-footer">
+                        <h6>O REGISTRATE MEDIANTE:</h6>
+                        <ul class="social-icons">
+                            <li>
+                                <a class="google" href="{% url 'social:begin' 'google-oauth2' %}">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+                <div class="login-links">
+                    <p class="text-center">¿Ya tienes una cuenta? ¡INGRESA!
+                        <a class="txt-brand" href="{% url 'user:login' %}">Login</a>
+                    </p>
+                </div>
             </div>
-          </div>
-
-          <hr class="hr-xs">
-
-        <div class="form-group">
-            {% for error in form.password1.errors %}
-            <p style="color:red; float:left; text-align: left;">{{error}}</p>
-           {% endfor %}
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-            {{form.password1}}
-          </div>
-        </div>
-
-        <hr class="hr-xs">
-
-        <div class="form-group">
-            {% for error in form.password2.errors %}
-            <p style="color:red; float:left; text-align: left;">{{error}}</p>
-           {% endfor %}
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-            {{form.password2}}
-          </div>
-        </div>
-        </div>
-        {{form.captcha}}
-        <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
-        <div class="container mt-5">
-
-        <div class="login-footer">
-          <h6>O REGISTRATE MEDIANTE:</h6>
-          
-          <ul class="social-icons">
-            <li><a class="google" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-google"></i></a></li>
-          </ul>
-        </div>
-
-      </form>
-      <div class="login-links">
-        <p class="text-center">¿Ya tienes una cuenta? ¡INGRESA! <a class="txt-brand" href="{% url 'user:login' %}">Login</a></p>
-      </div>
-    </div>
-
-    
-
-  </main>
-</section>
-
-{% endblock  %}
+        </main>
+    </section>
+    {% endblock  %}

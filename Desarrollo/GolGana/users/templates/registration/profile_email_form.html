@@ -1,0 +1,50 @@
+{% extends 'Golgana/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'GolGana/nav.html' %}
+<section class="profileCard container-fluid">
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="userCard card ">
+                <div class="profileCard-body  card-body align-items-center d-flex justify-content-center">
+                    <div class="d-flex flex-column align-items-center">
+                    {% if not request.user.perfilusuario.image %}
+                    <img src="{% static 'GolGana/img/mario.jpeg' %}" class="profileImage img-radius">
+                    {% else %}
+                    <img src="{{request.user.perfilusuario.image.url}}" class="profileImage img-radius">
+                    {% endif %}
+                        <h1 class="profileName"> {{user}}</h1>
+                        <h2 class="profileEmail"> {{user.email}}</h2>
+                        {% comment %}
+                        <h2 class="profileCity"> Tokio, Japon</h2>
+                        <h2 class="profileAddress"> Castillo Princesa Peach</h2>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col align-self-center">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="informationCard card">
+                        <div class="row flex justify-content-center">
+                            <div class="col-sm-4 flex justify-content-start align-items-center">
+                                <h3 class="mb-0">Nuevo Correo electronico</h3>
+                            </div>
+                            <div class="col-sm-8 flex justify-content-start align-items-center">
+                                {{form.email}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <input class="btn btn-success " type="submit" value="Actualizar">
+                            <a href="{% url 'user:profile' %}" class="btn btn-success ">Cancelar</a>
+                        </div>
+                    </div>
+                </div>    
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

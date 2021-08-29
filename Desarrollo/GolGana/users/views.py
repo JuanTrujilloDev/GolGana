@@ -1,10 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls.base import reverse_lazy, reverse
-from .forms import LoginCaptcha, UserCreationFormWithEmail
+from .forms import EmailForms, LoginCaptcha, UserCreationFormWithEmail
 from django.views import generic
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +14,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
+from .forms import ProfileUpdateForms
+from .models import PerfilUsuario
+
+
 
 UserModel = get_user_model()
 #Funcion vista de activacion de cuenta
@@ -74,10 +76,40 @@ class CLoginView(LoginView):
     redirect_authenticated_user = True
     authentication_form = LoginCaptcha
     
-@method_decorator(login_required, name='dispatch')
-class ProfileUpdate(LoginRequiredMixin, generic.TemplateView):
-    success_url = reverse_lazy('user:profile')
+
+class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
+    form_class = ProfileUpdateForms
+    template_name = 'registration/edit_profile.html'
+    success_url = 'user:profile'
+
+    def get_success_url(self):
+        return reverse_lazy('user:profile')
+
+    def get_object(self):
+        #recuperar objeto que se va a editar
+        profile, created = PerfilUsuario.objects.get_or_create(usuario=self.request.user)
+        return profile 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["email"] =EmailForms 
+        return context
+        
+
+class Profile(LoginRequiredMixin, generic.TemplateView):
     template_name = 'registration/profile_form.html'
+    
+
+class EmailUpdate(LoginRequiredMixin, generic.UpdateView):
+    form_class = EmailForms
+    template_name = 'registration/profile_email_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('user:profile')+'?ok'
+        
+    def get_object(self):
+        #recuperar objeto que se va a editar
+        return self.request.user
 
 
 
