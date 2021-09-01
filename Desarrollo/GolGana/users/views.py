@@ -73,12 +73,22 @@ class createUserView(generic.CreateView):
         send_mail(subject, message, 'golganaco@gmail.com', [to_email])
         
         messages.success(self.request, 'Porfavor confirma tu email antes de ingresar.')
-        return HttpResponseRedirect(reverse('user:login'))    
+        return HttpResponseRedirect(reverse('user:login'))  
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tittle'] = "Registro - GolGana"
+        return context  
 
 class CLoginView(LoginView):
     template_name = "registration/login.html"
     redirect_authenticated_user = True
     authentication_form = LoginCaptcha
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tittle'] = "Login - GolGana"
+        return context
     
 
 class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
@@ -97,11 +107,16 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["email"] =EmailForms 
+        context["tittle"] = "Actualizacion de perfil"
         return context
         
 
 class Profile(LoginRequiredMixin, generic.TemplateView):
     template_name = 'registration/profile.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tittle'] = "Mi perfil"
+        return context
     
 
 class EmailUpdate(LoginRequiredMixin, generic.UpdateView):
@@ -114,6 +129,10 @@ class EmailUpdate(LoginRequiredMixin, generic.UpdateView):
     def get_object(self):
         #recuperar objeto que se va a editar
         return self.request.user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tittle'] = "Actualizacion de correo"
+        return context
 
 @login_required(login_url="/login")
 def socialSuccess(request):
