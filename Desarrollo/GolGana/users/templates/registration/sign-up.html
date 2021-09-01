@@ -2,86 +2,121 @@
 
 {% load static %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'GolGana/css/login.css'%}">
+
+{% endblock %}
+
 {% block content %}
-<section class="d-flex fondo-login">
-    <main class="login-page d-flex align-items-center">
-        <div class="login-block">
-            <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
-            <h1>REGISTRO JUGADORES</h1>
-            <form action="." method="POST">
-                {% csrf_token %}
-        {% for message in messages %}
-                <p class="item" id="messages">{{ message }}</p>
-                {% endfor%}
-                <div class="form-group">
-                    <div class="form-group">
-                        {% for error in form.username.errors %}
-                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
-                        {% endfor %}
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user ti-user"></i>
-                            </span>
-                            {{form.username}}
-                        </div>
-                    </div>
-                    <hr class="hr-xs">
-                    <div class="form-group">
-                        {% for error in form.email.errors %}
-                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
-                        {% endfor %}
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-envelope"></i>
-                            </span>
-                            {{form.email}}
-                        </div>
-                    </div>
-                    <hr class="hr-xs">
-                    <div class="form-group">
-                        {% for error in form.password1.errors %}
-                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
-                        {% endfor %}
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-lock ti-unlock"></i>
-                            </span>
-                            {{form.password1}}
-                        </div>
-                    </div>
-                    <hr class="hr-xs">
-                    <div class="form-group">
-                        {% for error in form.password2.errors %}
-                        <p style="color:red; float:left; text-align: left;">{{error}}</p>
-                        {% endfor %}
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-lock ti-unlock"></i>
-                            </span>
-                            {{form.password2}}
-                        </div>
-                    </div>
-                </div>
-                {{form.captcha}}
-                <button class="btn btn-primary btn-custom btn-block" type="submit">Registrarse</button>
-                <div class="container mt-5">
-                    <div class="login-footer">
-                        <h6>O REGISTRATE MEDIANTE:</h6>
-                        <ul class="social-icons">
-                            <li>
-                                <a class="google" href="{% url 'social:begin' 'google-oauth2' %}">
-                                    <i class="fa fa-google"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-                <div class="login-links">
-                    <p class="text-center">¿Ya tienes una cuenta? ¡INGRESA!
-                        <a class="txt-brand" href="{% url 'user:login' %}">Login</a>
-                    </p>
-                </div>
+
+<section class="login d-flex align-items-center justify-content-center my-auto">
+
+    <div class="align-middle">  
+    <div class="wrapper bg-white">
+        <div class="text-center">
+        <img class="text-center mb-3" src="{% static 'GolGana/img/GolGana_6.svg'%}">
+        <h2>Registrate</h2>
+
+        </div>
+        <div class="h4 text-muted text-center pt-2">Ingresa tus datos</div>
+
+
+        <form class="pt-3" method="POST" action=".">{% csrf_token %}
+            {% if form.non_field_errors %}
+                    <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+                    {% endif %}
+            <div class="form-group py-2">
+                <div class="input-field"> <span class="fa fa-user p-2"></span> {{form.username}} </div>
+                {%for error in form.username.errors%} 
+                <p style="color:red;">{{error}}</p>
+                {% endfor %}
             </div>
-        </main>
-    </section>
-    {% endblock  %}
+
+
+            <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fa fa-envelope p-2"></span> {{form.email}}</div>
+            {%for error in form.email.errors%} 
+            <p style="color:red;">{{error}}</p>
+            {% endfor %}
+            </div>
+
+
+            <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fa fa-lock p-2"></span> {{form.password1}} <i toggle="#password-field1" class="fa fa-eye-slash toggle-password1" id="togglePasword1"></i> 
+                    
+                </div>
+                {%for error in form.password1.errors%} 
+                <p style="color:red;">{{error}}</p>
+                {% endfor %}
+            </div>
+
+
+            <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fa fa-lock p-2"></span> {{form.password2}} <i toggle="#password-field2" class="fa fa-eye-slash toggle-password2" id="togglePasword2"></i> </div>
+                {%for error in form.password2.errors%} 
+            <p style="color:red;">{{error}}</p>
+            {% endfor %}
+            </div>
+            {%for error in form.captcha.errors%} 
+            <p style="color:red;">{{error}}</p>
+            {% endfor %}
+            {{form.captcha}}
+
+
+            <button class="btn btn-block btn-submit text-center my-3" type="submit">Registro</button>
+            <div class="col-md-12 ">
+                <div class="login-or">
+                   <hr class="hr-or">
+                   <span class="span-or">o</span>
+                </div>
+             </div>
+    
+             <div class="col-md-12 mb-3">
+              <p class="text-center">
+                 <a href="{% url 'social:begin' "google-oauth2" %}" class="google btn mybtn"><i class="fa fa-google-plus">
+                 </i> Registrate a traves de Google
+                 </a>
+              </p>
+           </div>
+
+            <div class="text-center pt-3 text-muted">¿No eres miembro? <a href="#">Registrarme</a></div>
+        </form>
+    </div>
+</div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    
+    $(".toggle-password1").click(function() {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+        });
+
+    $(".toggle-password2").click(function() {
+
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+    input.attr("type", "text");
+    } else {
+    input.attr("type", "password");
+    }
+    });
+    
+    </script>
+
+
+
+
+{% endblock %}

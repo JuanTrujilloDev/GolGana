@@ -2,15 +2,15 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms.widgets import ClearableFileInput
-from .models import PerfilUsuario
+from .models import PerfilCliente
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Invisible, ReCaptchaV2Checkbox
 
 class UserCreationFormWithEmail(UserCreationForm):
     email = forms.EmailField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu correo electronico'}))
     username = forms.CharField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu usuario'}))
-    password1 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password' , 'placeholder':'Digita una contraseña'}))
-    password2 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder':'Confirma tu contraseña'}))
+    password1 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password' , 'placeholder':'Digita una contraseña', 'id':'password-field1'}))
+    password2 = forms.CharField(required=True, help_text=None, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder':'Confirma tu contraseña', 'id':'password-field2'}))
     captcha = ReCaptchaField(required = True, widget= ReCaptchaV2Checkbox(attrs={'data-size':'normal', 'required':True}))
     
     class Meta:
@@ -32,11 +32,7 @@ class UserCreationFormWithEmail(UserCreationForm):
             raise forms.ValidationError("El username ya esta registrado")
         return username    
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = "form-control"
+  
 
 class LoginCaptcha(AuthenticationForm):
     captcha = ReCaptchaField(required = True, widget= ReCaptchaV2Checkbox(attrs={'data-size':'normal', 'required':True}))
@@ -48,7 +44,7 @@ class LoginCaptcha(AuthenticationForm):
 
 class ProfileUpdateForms(forms.ModelForm):
     class Meta:
-        model = PerfilUsuario
+        model = PerfilCliente
         fields = ['nombre', 'apellido', 'image', 'telefono']
 
 

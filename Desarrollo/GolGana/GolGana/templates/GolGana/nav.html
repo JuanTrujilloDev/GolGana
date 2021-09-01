@@ -1,28 +1,50 @@
-{% block nav %}
 {% load static %}
-<nav id="navbarleon" class="navbarleon navbar navbar-expand-lg fixed-top ">
-  <div class="container "> 
-    <a class="navbar-brand" href="{% url 'home' %}"><img class="logo"src="{% static 'GolGana/img/GolGana_6_blanco.png' %}"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Acerca de</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active " aria-current="page" href="#">Registra tu cancha</a>
-        </li>
-        <li class="nav-item">
-          {% if not user.is_authenticated %}
-          <a class="btn btn-primary" aria-current="page" href="{% url 'user:login' %}" >Iniciar sesion</a>
-          {% else %}
-          <a class="btn btn-success " aria-current="page" href="{% url 'user:profile' %}" >Perfil</a>
-          {% endif %}
-          
-        </li>
+<section class="navHeader mb-5">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="{% static 'GolGana/img/GolGana_6.svg' %}"style="max-width:40px;" onmouseover="this.src='{% static  'GolGana/img/soccerblanco.svg' %}'" onmouseout="this.src='{% static  'GolGana/img/GolGana_6.svg' %}'"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Funciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Acerca de</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Registrate</a>
+              </li>
+              <li class="nav-item">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Iniciar Sesión</a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container col-xxl-12 py-5 heroNav">
+        <div class="row flex-lg-row-reverse justify-content-start align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6" data-aos="fade-left" data-aos-duration="1300" data-aos-once="true">
+            <img src="{% static 'GolGana/img/soccer.svg' %}" class="d-block mx-lg-auto img-fluid imgHero" alt="Bootstrap Themes" width="550" height="350" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">GolGana</h1>
+            <p class="lead">Imagina encontrar la mejor cancha de tu ciudad disponible y poder <strong>alquilarla</strong> desde la comodidad de tu casa, ¿Qué estás esperando? ¡Regístrate ya y busca las mejores canchas para ti y tus amigos!</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">¡Solicitar!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-shape-divider-bottom-1630425168">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+        </svg>
     </div>
-  </div>
-</nav>
-{% endblock  %}
+</section>

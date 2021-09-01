@@ -1,38 +1,30 @@
-{% block tarjetas %}
 {% load static %}
-<section class="container-fluid mt-5">
-	<div class="cards-1 text-center">
-        <div class="container">
-            <div class="row ">
-                <div class="col-lg-12 ">
-                    <div class="card10 card text-center">
-                        <span class="fa-stack">
-                            <div class="d-flex justify-content-center"><img class="football" src="{% static 'GolGana/img/football.png' %}"></img></div>
-                        </span>
-                        <br>
-                        <div class="card-body">
-                            <p class="texto  tarjetas-texto">CanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCanchaCancha</p>
-                        </div>
-                    </div>
-                    <div class="card20 card text-center">
-                        <span class="fa-stack text-center">
-                            <div class="d-flex justify-content-center"><img class="football-field" src="{% static 'GolGana/img/football-field.png'%}"></img></div>
-                        </span>
-                        <div class="card-body">
-                            <p class="texto  tarjetas-texto">EstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadioEstadio</p>
-                        </div>
-                    </div>
-                    <div class="card30 card text-center">
-                        <span class="fa-stack">
-                            <div class="d-flex justify-content-center"><img class="call" src="{% static 'GolGana/img/call.png'%}" ></img></div>
-                        </span>
-                        <div class="card-body">
-                            <p class="texto tarjetas-texto">TelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefonoTelefono</p>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        </div> 
+<section class="tarjetasIndex container">
+    <div class="text-center">
+        <h1>FUNCIONES</h1>
+        <hr>
     </div>
-  </section>
-{% endblock %}
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col" data-aos="fade-up" data-aos-duration="1300" data-aos-once="true">
+      <div class="feature-icon text-center">
+          <img class="img-fluid " src="{% static 'GolGana/img/strategy.svg' %}">
+      </div>
+      <h2 class="features-title text-start">Arma tu equipo</h2>
+      <p class="features-text text-start">Arma tu equipo y disfruta de un rato agradable junto a tus amigos y familiares.</p>
+    </div>
+    <div class="feature col" data-aos="fade-up" data-aos-duration="1300" data-aos-once="true">
+        <div class="feature-icon text-center">
+            <img class="img-fluid " src="{% static 'GolGana/img/goal-box.svg' %}">
+        </div>
+      <h2 class="features-title text-start">Las mejores canchas</h2>
+      <p class="features-text text-starts">Tenemos las mejores canchas del país y podrás alquilarlas desde cualquier parte.</p>
+    </div>
+    <div class="feature col" data-aos="fade-up" data-aos-duration="1300" data-aos-once="true">
+        <div class="feature-icon text-center">
+            <img class="img-fluid" src="{% static 'GolGana/img/calendar.svg' %}">
+        </div>
+      <h2 class="features-title text-start">Busca y Alquila</h2>
+      <p class="features-text text-start">Busca y alquila tu cancha, en el día y a la hora que quieras.</p>
+    </div>
+  </div>
+</section>

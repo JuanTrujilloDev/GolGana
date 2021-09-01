@@ -1,243 +1,199 @@
 body{
-    font-family: "Inter", sans-serif !important;
-}
-.logo{
-    width: 150px;
-    height: 50px;
-}
-
-
-.navbar a{
-    font-weight: bold;
-    font-size: 1.8rem;
-}
-
-@media (min-width: 994px) {
-    .navbarleon{
-        background: transparent !important;
-    }
-
-    .navbar-light{
-        background-color: white!important;
-        border-bottom:rgb(0, 0, 0)!important;
-    }
-
-    .navbar-light a{
-        color:black!important;
-        font-weight: bold;
-    }
-
-    .logo2{
-        content:url('../img/GolGana_6.png')!important;
-        transition: 0.2s linear;
-    }
-    
-    .logo{
-        content:url('../img/GolGana_6_blanco.png')!important;
-        transition: 0.2s linear;
-    }
-
-    .navbarleon a{
-        color:white!important;
-        font-weight: bold;
-    }
+    overflow-x: hidden;
+    min-width: 100vw!important;
 
 }
 
-.navbarleon{
-    background-color:white;
+@media (max-width:1000px) {
+    .navHeader .row{
+        margin-right:0!important;
+    }
 }
 
-.navbarleon a{
-    color:black;
+/*-->NAVBAR<--*/
+.navHeader .navbar{
+    background-color: transparent!important;
+    padding: 0% 5% 0% 5%;
+}
+
+.navHeader{
+    background-color: #5B1CE3;
+    position: relative;
+    min-width: 100vw;
+}
+
+.navHeader .nav-link{
+    color:#f3f4f5!important;
     font-weight: bold;
 }
-
-.navbar-light{
-    background-color: white;
+.navHeader .nav-link:hover{
+    color: #A4E31D !important;
 }
 
-.navbar-light a{
-    color:black;
+.navHeader .navbar-brand img{
+    width: 3rem!important;
+}
+
+.heroNav h1, .heroNav p{
+    color: #f3f4f5!important
+}
+
+.heroNav .btn-primary{
+    background-color:#A4E31D;
+    color:#f3f4f5;
     font-weight: bold;
+    border:transparent;
+}
+.heroNav .btn-primary:hover{
+    background-color: #f3f4f5;
+    color: #A4E31D;
 }
 
-.navbarleon button{
-    border-color:rgb(145, 145, 145)!important;
+@media (min-width:1000px){
+    .navHeader .nav-link{
+        margin-left: 5px;
+    }
 }
 
-.navbarleon button span{
-    color: rgb(145, 145, 145)!important;
+@media (max-width:1000px){
+
+    .navHeader .imgHero{
+    display: none!important;
+    }
 }
 
-.logo2{
-    content:url('../img/GolGana_6.png')!important;
-    transition: 0.2s linear;
-}
-
-.logo{
-    content:url('../img/GolGana_6.png');
-    transition: 0.2s linear;
-}
-
-a.btn-primary{
-    border-radius: 5%;
-    font-size: 15px;
-    border-color: transparent !important;
-    margin-left: 40px !important;
-    background-color: #7ab92a !important;
-    
-}
-a.btn-primary:hover{
-    border: transparent !important;
-    background-color: #a8e754 !important;
-}
-
-/*<--nav-->*/
-.bannerContainer {
-    position:relative;     
-}
-.carousel {
-    position:absolute;
-    top:0;    
-}
-.carousel-inner{
-    width:100%;
-    max-height: 720px!important;
-  }
-
-  .carousel-inner img{
-    filter: brightness(30%);
-    width:100%;
-    max-height: 720px!important;
-  }
-  .hero {
+.custom-shape-divider-bottom-1630425168 {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 3;
-    color: #fff;
-    text-align: center;
-    text-transform: uppercase;
-      -webkit-transform: translate3d(-50%,-50%,0);
-         -moz-transform: translate3d(-50%,-50%,0);
-          -ms-transform: translate3d(-50%,-50%,0);
-           -o-transform: translate3d(-50%,-50%,0);
-              transform: translate3d(-50%,-50%,0);
-}
-.hero h1 {
-    font-size: 6em;    
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-}
-
-/********************************/
-/*          Media Queries       */
-/********************************/
-@media screen and (min-width: 980px){
-    .hero { width: 980px; }
-    .hero .btn-custom{font-size: 2rem !important;}   
-}
-@media screen and (max-width: 640px){
-    .hero h1 { font-size: 2em; }    
-    
-}
-
-.carrusel{
-    padding-left: 0!important;
-    padding-right: 0!important;
-    margin-left:0!important;
-    margin-right:0!important;
-    
-}
-
-.carousel-item .active{
-    max-height: 20vh!important;
-}
-
-/*<--lugar-->*/
-.googlemapa{
-
-    overflow: hidden !important;
-    height: 80vh;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    margin-bottom: 5%;
-}
-.googlemapa iframe{
-
-    width: 100%;
-    height: 90%;
-}
-.mapagoogle{
-    background-color: #f4f4f4 !important;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
 }
 
-/*<--tarjetas-->*/
-.tarjeta1{
-    
-background-color: #ffffff;
-background-image: url("../img/tilt.svg");
-background-size: cover;
-background-attachment:inherit;
-background-position: 50% 50%;
-background-size: 1920px 1200px;
+.custom-shape-divider-bottom-1630425168 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 62px;
 }
 
-.card{
-    font-size: 1.3rem !important;
-    text-align: center !important;
-    min-width: 20vw!important;
-    margin-bottom: 10%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.texto{
-    align-items: center !important;
-    padding: 70px 20px;
+.custom-shape-divider-bottom-1630425168 .shape-fill {
+    fill: #202124;
 }
 
-/*<--tarjetas-->*/
-.cards-1 .card {
-    display: inline-block;
-    max-width: 17.5rem;
-    text-align: left;
-    vertical-align: top;
+/*-->Tarjeta<--*/
+
+hr{
+    width:10%!important;
+    color:#5B1CE3!important;
+    opacity: 1;
+    margin: 0 auto;
+
 }
 
-.cards-1 div.card:nth-child(3n+2) {
-    margin-right: 2.5rem;
-    margin-left: 2.5rem;
+.tarjetasIndex h1{
+    color: #f3f4f5;
 }
 
-.football{  
-    margin-top: 50% !important;
-    max-width: 250% !important;
-}
-    
-.football-field{
-    margin-top: 50% !important;
-    max-width: 250% !important;
+.tarjetasIndex h2{
+    color:#A4E31D;
 }
 
-.call{
-    margin-top: 50% !important;
-    max-width: 250% !important;
+.tarjetasIndex p{
+    color: #f3f4f5;
+}
+
+.tarjetasIndex a{
+    color:#A4E31D;
+}
+
+.tarjetasIndex img{
+    max-width: 180px;
+}
+
+/*-->Mapa<--*/
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:50%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.mapa h1{
+    color: #f3f4f5;
+}
+
+/*-->About<--*/
+
+.aboutIndex h1{
+    color: #f3f4f5 !important;
+}
+
+.aboutIndex h2{
+    color:#A4E31D !important;
+}
+
+.aboutIndex .card{
+    color: #f3f4f5 !important;
+    background: transparent !important;
+    border:none !important;
+
 }
 
 
+/*-->footer<--*/
 
-/*<--Footer-->*/
-.footerleon{
-    background-color: #34495e;
+
+.footer{
+    background-color: #5B1CE3;
+    width: 100vw!important;
 }
 
-section.container{
-    background-color: #82e0ab;
+.footerIndex{
+    background-color: #5B1CE3;
+    position: relative;
 }
 
-.tarjetas-texto {
+.footerIndex img{
+    width: 9.5rem!important;
+}
+
+.footerIndex .nav-link:hover{
+    color:#A4E31D!important;
     font-weight: bold;
-    font-size: 1.5rem;
 }
 
+.footerIndex .nav-link, .footerIndex p{
+    color:#f3f4f5!important;
+}
 
+.custom-shape-divider-top-1630426408 {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1630426408 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 62px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1630426408 .shape-fill {
+    fill: #202124;
+}

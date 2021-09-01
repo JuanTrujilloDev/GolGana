@@ -11,4 +11,5 @@ post_patterns = ([
     path('login/', views.CLoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('accounts/password-change/', PasswordChangeView.as_view(success_url='/'), name="password-change"),
+    path('social/success', views.socialSuccess, name="social-success")
 ], "user")

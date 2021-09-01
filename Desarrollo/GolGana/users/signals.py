@@ -1,18 +1,96 @@
 
-from django.db.models.signals import post_save, pre_save
-from django.contrib.auth.models import User
+from django.db.models.signals import m2m_changed
+from django.contrib.auth.models import User, Group
 from django.dispatch import receiver
-from .models import PerfilUsuario, TipoUsuario
+from .models import PerfilCliente
 
 
-@receiver(post_save, sender=User)
-def newPerfil(sender, instance, created, **kwargs):
+
+
+
+
+##PERFIL POR FORMULARIO
+@receiver(m2m_changed, sender = User.groups.through)
+def agregarPerfil(instance, action, reverse, *args, **kwargs):
+    grupo_cliente = Group.objects.get(name = "Cliente")
+    grupo_empresa = Group.objects.get(name = "Empresa")
+    grupo_moderador = Group.objects.get(name = "Moderador")
     
-    if created:
-        PerfilUsuario.objects.create(usuario=instance)
+    
+    if action == "post_add":
+        
 
-@receiver(post_save, sender=User) 
-def guardarPerfil(sender, instance, **kwargs):
-        tipo = TipoUsuario.objects.get(nombre="Cliente")
-        instance.perfilusuario.tipo_usuario = tipo
-        instance.perfilusuario.save()
+
+        if  grupo_cliente in instance.groups.all():
+            try:
+                perfil = PerfilCliente.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil == None:
+                    PerfilCliente.objects.create(usuario = instance)
+
+        elif grupo_empresa in instance.groups.all():
+            '''
+            SE TRAE EL PERFIL EMPRESA
+            try:
+                perfil = PerfilEmpresa.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil == None:
+                    PerfilEmpresa.objects.create(usuario = instance)'''
+
+        elif grupo_moderador in instance.groups.all():
+            '''
+            SE TRAE EL PERFIL Moderador
+            try:
+                perfil = PerfilModerador.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil == None:
+                    PerfilModerador.objects.create(usuario = instance)'''
+
+    if action == "pre_remove":
+
+        if  grupo_cliente in instance.groups.all():
+            try:
+                perfil = PerfilCliente.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil != None:
+                    perfil.delete()
+
+        elif grupo_empresa in instance.groups.all():
+            '''
+            SE TRAE EL PERFIL EMPRESA
+             try:
+                perfil = PerfilCliente.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil != None:
+                    perfil.delete()'''
+
+        elif grupo_moderador in instance.groups.all():
+            '''
+            SE TRAE EL PERFIL Moderador
+             try:
+                perfil = PerfilCliente.objects.get(usuario = instance)
+            except:
+                perfil = None
+
+            finally:
+                if perfil != None:
+                    perfil.delete()'''
+
+
+
+

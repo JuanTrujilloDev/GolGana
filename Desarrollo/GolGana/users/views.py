@@ -11,11 +11,12 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from .forms import ProfileUpdateForms
-from .models import PerfilUsuario
+from .models import PerfilCliente
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -41,6 +42,7 @@ def activate(request, uidb64, token):
 class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
     template_name = 'registration/sign-up.html'
+    model = User
     
 
     def get_success_url(self):
@@ -55,6 +57,8 @@ class createUserView(generic.CreateView):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
+        grupo = Group.objects.get(name = 'Cliente')
+        user.groups.add(grupo)
         # Send confirmation email
         current_site = get_current_site(self.request)
         subject = 'Activate Your ' + current_site.domain + ' Account'
@@ -87,7 +91,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self):
         #recuperar objeto que se va a editar
-        profile, created = PerfilUsuario.objects.get_or_create(usuario=self.request.user)
+        profile, created = PerfilCliente.objects.get_or_create(usuario=self.request.user)
         return profile 
 
     def get_context_data(self, **kwargs):
@@ -97,7 +101,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
         
 
 class Profile(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'registration/profile_form.html'
+    template_name = 'registration/profile.html'
     
 
 class EmailUpdate(LoginRequiredMixin, generic.UpdateView):
@@ -110,6 +114,14 @@ class EmailUpdate(LoginRequiredMixin, generic.UpdateView):
     def get_object(self):
         #recuperar objeto que se va a editar
         return self.request.user
+
+@login_required(login_url="/login")
+def socialSuccess(request):
+    defaultgroup = Group.objects.get(name = 'Cliente')
+    user = request.user
+    user.groups.add(defaultgroup)
+
+    return redirect('user:login')
 
 
 

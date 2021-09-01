@@ -2,67 +2,78 @@
 
 {% load static %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'GolGana/css/login.css'%}">
+
+{% endblock %}
+
 {% block content %}
-<section class="d-flex fondo-login">
-    <main class="login-page d-flex align-items-center">
-        <div class="login-block">
-            <img class="img-fluid img-log" src="{% static 'GolGana/img/GolGana_6.png' %}" alt="GolGana">
-            <h1>LOG IN</h1>
-            <form action="." method="POST">
-                {% csrf_token %}
-        {% for message in messages %}
-                <p class="item" id="messages">{{ message }}</p>
-                {% endfor%}
-                <div class="form-group">
-                    {% if form.non_field_errors %}
+
+<section class="login d-flex align-items-center justify-content-center my-auto">
+
+    <div class="align-middle">  
+    <div class="wrapper bg-white">
+        <div class="h2 text-center">Login</div>
+        <div class="h4 text-muted text-center pt-2">Ingresa tus datos</div>
+        <form class="pt-3" method="POST" action=".">{% csrf_token %}
+            {% if form.non_field_errors %}
                     <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
                     {% endif %}
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user ti-user"></i>
-                            </span>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="username"
-                                placeholder="Ingresa tu usuario"
-                            >
-                        </div>
-                    </div>
-                    <hr class="hr-xs">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-lock ti-unlock"></i>
-                        </span>
-                        <input
-                            type="password"
-                            name="password"
-                            class="form-control"
-                            placeholder="Ingresa tu contraseña"
-                        >
-                    </div>
-                </div>
-                {{form.captcha}}
-                <button class="btn btn-primary btn-custom btn-block" type="submit">Ingresar</button>
-                <div class="login-footer">
-                    <h6>O INGRESA MEDIANTE:</h6>
-                    <ul class="social-icons">
-                        <li>
-                            <a class="google" href="{% url 'social:begin' 'google-oauth2' %}">
-                                <i class="fa fa-google"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-            <div class="login-links">
-                <p class="text-center">¿No tienes cuenta aún? UNETE!
-                    <a class="txt-brand" href="{% url 'user:signup' %}">Registro</a>
-                </p>
+            <div class="form-group py-2">
+                <div class="input-field"> <span class="fa fa-user p-2"></span> <input type="text" placeholder="Usuario" required name="username"> </div>
+            {{form.username.errors}}
             </div>
-        </div>
-    </main>
+            <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fa fa-lock p-2"></span> <input type="password" placeholder="Contraseña" required class="" name="password" id="password-field"> <i toggle="#password-field" class="fa fa-eye-slash toggle-password" id="togglePasword"></i> </div>
+            {{form.password.errors}}
+            </div>
+            <div class="d-flex align-items-start mb-3">
+                <div class="ml-auto"> <a href="#" id="forgot"> ¿Olvidaste tu contraseña?</a> </div>
+            </div>
+            {{form.captcha.errors}} 
+            {{form.captcha}}
+            <button class="btn btn-block btn-submit text-center my-3" type="submit">Ingresar</button>
+            <div class="col-md-12 ">
+                <div class="login-or">
+                   <hr class="hr-or">
+                   <span class="span-or">o</span>
+                </div>
+             </div>
+    
+             <div class="col-md-12 mb-3">
+              <p class="text-center">
+                 <a href="{% url 'social:begin' "google-oauth2" %}" class="google btn mybtn"><i class="fa fa-google-plus">
+                 </i> Ingresa a traves de Google
+                 </a>
+              </p>
+           </div>
+
+            <div class="text-center pt-3 text-muted">¿No eres miembro? <a href="#">Registrarme</a></div>
+        </form>
+    </div>
+</div>
 </section>
-<!--CHUPEME LA PIJA MERGE-->
-{% endblock  %}
+
+{% endblock %}
+
+{% block js %}
+<script>
+    
+    $(".toggle-password").click(function() {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+        });
+    
+    </script>
+
+
+
+
+{% endblock %}
