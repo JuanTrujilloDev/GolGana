@@ -154,9 +154,12 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
 LOGIN_URL = 'user:login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'user:profile'
+LOGIN_REDIRECT_URL = 'user:login_redirect'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGOUT_URL = 'logout'
 

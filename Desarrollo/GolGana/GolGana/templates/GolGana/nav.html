@@ -15,12 +15,33 @@
               <li class="nav-item">
                 <a class="nav-link" href="#aboutIndex">Acerca de</a>
               </li>
+
+              
+              {% if not request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:signup' %}">Registrate</a>
               </li>
               <li class="nav-item">
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'user:login' %}">Iniciar Sesión</a>
+                </li>
+
+              {% else %}
+              <li class="nav-item">
+                <li class="nav-item">
+                  {% if request.user.perfilcliente %}
+                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfilcliente.slug %}">Mi Perfil</a>
+                  {% elif request.user.perfiladministrador %}
+                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfiladministrador.slug %}">Mi Perfil</a>
+                  {% elif request.user.perfilmoderador %}
+                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfilmoderador.slug %}">Mi Perfil</a>
+                  {% endif %}
+                </li>
+                <li class="nav-item">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user:login' %}">Reservar</a>
+                  </li>
+              {% endif %}
             </ul>
           </div>
         </div>
@@ -31,7 +52,7 @@
             <img src="{% static 'GolGana/img/soccer.svg' %}" class="d-block mx-lg-auto img-fluid imgHero" alt="Bootstrap Themes" width="550" height="350" loading="lazy">
           </div>
           <div class="col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">GolGana</h1>
+            <h1 class=" fw-bold lh-1 mb-3">GolGana</h1>
             <p class="lead">Imagina encontrar la mejor cancha de tu ciudad disponible y poder <strong>alquilarla</strong> desde la comodidad de tu casa, ¿Qué estás esperando? ¡Regístrate ya y busca las mejores canchas para ti y tus amigos!</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
               <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">¡Solicitar!</button>

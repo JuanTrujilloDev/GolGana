@@ -1,0 +1,125 @@
+{% extends 'GolGana/base.html' %}
+
+{% load static %}
+{% block css %}
+
+<link href="{% static 'GolGana/css/profile.css' %}" rel="stylesheet">
+{% endblock css %}
+
+
+
+{% block content %}
+{% include 'registration/navegacion.html' %}
+<section class="editProfile h-100 d-flex justify-content-center">
+
+  <form action="." method="POST" class="mb-5">{% csrf_token %}
+       
+    <nav class="nav navSecundaria d-flex justify-content-center mb-5 pt-3">
+      <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user me-1"></i>Perfil</a>
+      <a class="nav-link" href="#"><i class="fa fa-book me-1"></i>Historial</a>
+      <a class="nav-link" href="{% url 'user:logout' %}"><i class="fa fa-sign-out me-1"></i>Salir</a>
+    </nav>
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+      <div class="col">
+       <img src="{{object.image.url}}" class="rounded-circle">
+      </div>
+      <div class="col">
+        <h1>{{object.nombre}} {{object.apellido}}</h1>
+        <h5>Nombre de usuario: {{object.usuario.username}}</h5>
+        <h5>Miembro desde: {{object.usuario.date_joined|date:'d M, Y'}}</h5>
+      </div>
+    </div>
+    <h1>Información Personal:</h1>
+    <hr>
+    <div class="row">
+    <h4 class="text-muted">Ingresa tus datos:</h4>
+    <!-- Text input -->
+    <div class="col">
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form6Example3">Nombre</label>
+      {{form.nombre}}
+      {{form.nombre.errors}}
+    </div>
+  </div>
+    <!-- Text input -->
+    <div class="col">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example3">Apellido</label>
+        {{form.apellido}}
+        {{form.apellido.errors}}
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <!-- Text input -->
+      <div class="col">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example3">Correo Electrónico</label>
+        {{email.email}}
+        {{email.email.errors}}
+      </div>
+    </div>
+      <!-- Text input -->
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example3">Teléfono</label>
+          {{form.telefono}}
+          {{form.telefono.errors}}
+        </div>
+      </div>
+      </div>
+      <h1>Datos de facturacion:</h1>
+      <hr>
+      <h4 class="text-muted">Actualiza tus datos de domicilio:</h4>
+      <div class="row">
+        <!-- Text input -->
+        <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example3">Tipo Documento</label>
+          {{form.tipo_documento}}
+          {{form.tipo_documento.errors}}
+        </div>
+      </div>
+        <!-- Text input -->
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example3">Documento</label>
+            {{form.documento}}
+            {{form.documento.errors}}
+          </div>
+        </div>
+        </div>  
+        <div class="row">
+          <!-- Text input -->
+          <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example3">Departamento</label>
+            {{form.departamento}}
+            {{form.departamento.errors}}
+          </div>
+        </div>
+          <!-- Text input -->
+          <div class="col">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form6Example3">Ciudad</label>
+              {{form.ciudad}}
+              {{form.ciudad.errors}}
+            </div>
+          </div>
+          </div>
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example3">Dirección</label>
+          {{form.direccion}}
+          {{form.direccion.errors}}
+        </div>
+       
+  
+
+  
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Guardar</button>
+  </form>
+
+</section>
+{% endblock %}

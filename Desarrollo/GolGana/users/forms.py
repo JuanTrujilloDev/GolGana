@@ -45,7 +45,14 @@ class LoginCaptcha(AuthenticationForm):
 class ProfileUpdateForms(forms.ModelForm):
     class Meta:
         model = PerfilCliente
-        fields = ['nombre', 'apellido', 'image', 'telefono']
+        fields = ['nombre', 'apellido', 'image', 'telefono', 'direccion', 'tipo_documento', 'documento']
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(ProfileUpdateForms, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+    
 
 
 
@@ -69,7 +76,7 @@ class EmailForms(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = "form-control form-control-lg"
+            visible.field.widget.attrs['class'] = "form-control"
 
 
 

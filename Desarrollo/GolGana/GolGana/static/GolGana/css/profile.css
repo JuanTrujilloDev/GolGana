@@ -1,0 +1,119 @@
+/* BARRAS DE NAVEGACION PERFIL */
+
+
+.navegacion .navbar{
+    background-color: #5B1CE3;  
+}
+
+.image-link{
+    opacity: 1 !important;
+}
+
+.navbar .navbar-brand{
+    opacity: 1!important;
+}
+
+.navegacion .navbar .nav-link{
+    color: #f3f4f5;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: 'Nunito', sans-serif !important;
+    opacity: 0.5;
+    margin-left:3px;
+    margin-right: 3px;
+}
+
+.navegacion .navbar .active{
+    color: #A4E31D!important;
+    font-weight: bold!important;
+    border-bottom: 1px solid #A4E31D;
+    opacity: 1;
+}
+
+.navegacion .navbar:active{
+    color: #A4E31D !important;
+    font-weight: bold!important;
+}
+
+.navegacion .navbar .nav-link:hover{
+    color: #A4E31D;
+    opacity: 1;
+}
+
+.navegacion .navbar .navbar-toggler{
+    border-color:#A4E31D;
+}
+
+.navegacion .navbar .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(164, 227, 29, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important;
+      
+}
+
+@media (max-width:1000px){
+    .navbar .active{
+        border-bottom: none!important;
+    }
+    .image-link{
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+/*PROFILE*/
+
+
+
+
+
+
+
+
+
+
+/*EDIT-PROFILE*/
+
+.editProfile form{
+    background-color: #f3f4f5;
+    border-radius: 25px;
+    padding: 0% 5% 5% 5%;
+    min-width: 60%;
+}
+
+
+.editProfile h1, .editProfile h5{
+    color:#5B1CE3!important;
+}
+
+.editProfile h4{
+
+}
+
+.editProfile img{
+    width:75%!important;
+}
+
+.editProfile label{
+    color:#5B1CE3;
+    font-weight: bold;
+}
+
+.errorlist li{
+    color:red!important;
+}
+
+.editProfile hr{
+    color:#5B1CE3;
+    opacity: 1;
+    width: 60%;
+}
+
+.editProfile .btn{
+    width:100%;
+    background-color: #5B1CE3;
+    border: none;
+}

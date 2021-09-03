@@ -7,8 +7,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(post_patterns)),
     path('', include('social_django.urls', namespace='social')),
-    path('', Home.as_view(), name="home")
+    path('', Home.as_view(), name="home"),
 ]
+
+
 
 if settings.DEBUG:
     from django.conf.urls.static import static
