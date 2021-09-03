@@ -13,6 +13,6 @@ post_patterns = ([
     path('accounts/password-change/', PasswordChangeView.as_view(success_url='/'), name="password-change"),
     path('social/success', views.socialSuccess, name="social-success"),
     path('redirect/account', views.login_redirect, name="login_redirect"),
-    #path('json/load/cities', views.json_load, name="json-load-cities"),
+    path('json/load/cities', views.json_load, name="json-load-cities"),
 ], "user")
 

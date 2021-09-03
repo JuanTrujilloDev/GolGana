@@ -179,8 +179,14 @@ def json_load(request):
             ciudad.save()
     return redirect('home')'''
 
-
-
+@user_passes_test(lambda u: u.is_superuser)
+def json_load(request):
+    data = requests.get('https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json')
+    my_dict = data.json()   
+    for i in my_dict[0:32]:
+        departamento = Departamento.objects.create(nombre = i['departamento'])
+        for j in range(0, len(i['ciudades'])):Ciudad.objects.create(departamento = departamento, nombre = i['ciudades'][j])
+    return redirect('home')
 
 ## ACTUALIZAR CONTRASEÑA VIEW
 
