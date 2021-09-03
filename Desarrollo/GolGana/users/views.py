@@ -173,10 +173,8 @@ def json_load(request):
     file = json.loads(requests.get(url).text)
     for lines in file:
         departamento = Departamento.objects.create(nombre = lines['departamento'])
-        departamento.save()
         for x in lines['ciudades']:
             ciudad = Ciudad.objects.create(nombre= x, departamento = departamento)
-            ciudad.save()
     return redirect('home')'''
 
 @user_passes_test(lambda u: u.is_superuser)
