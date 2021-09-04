@@ -5,10 +5,6 @@ from django.dispatch import receiver
 from .models import PerfilCliente
 
 
-
-
-
-
 ##PERFIL POR FORMULARIO
 @receiver(m2m_changed, sender = User.groups.through)
 def agregarPerfil(instance, action, reverse, *args, **kwargs):

@@ -123,21 +123,18 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     ##SE REDIRECCIONA SI EL USUARIO NO ES DUEÑO DEL PERFIL Y QUIERE EDITARLO
     ## O SI NO ES CLIENTE
     def get(self, request, *args, **kwargs):
-            object = self.get_object()
-            if object.usuario != self.request.user or  request.user.groups.filter(name = "Cliente").exists():
-                ##REDIRIGIR A ACCESO DENEGADO!!
-                return redirect(reverse('home'))
-            return super().get(request, *args, **kwargs)
+        object = self.get_object()
+        ##REDIRIGIR A ACCESO DENEGADO!!
+        if object.usuario != self.request.user or request.user.groups.filter(name = "Cliente").exists():return super().get(request, *args, **kwargs)
+        return redirect(reverse('home'))
+        
     
     def form_valid(self, form):
         context = self.get_context_data()
-
         with transaction.atomic():
             self.object = form.save()
-
             if context['email'].is_valid():
                 context['email'].save()
-
         return super(ProfileUpdate, self).form_valid(form)
         
 

@@ -53,8 +53,8 @@ class PerfilCliente(models.Model):
     tipo_documento = models.CharField(max_length=300, choices = DOC_CHOICES)
     documento_regex = RegexValidator(regex='^[0-9]{13}$')
     documento = models.CharField(validators=[documento_regex],max_length=13, verbose_name="Numero de documento")
-    departamento = models.ForeignKey(Departamento, on_delete= models.CASCADE)
-    ciudad = models.ForeignKey(Ciudad, on_delete= models.CASCADE)
+    departamento = models.ForeignKey(Departamento, on_delete= models.CASCADE, null=True, blank=True)
+    ciudad = models.ForeignKey(Ciudad, on_delete= models.CASCADE, null=True, blank=True)
 
 
 
