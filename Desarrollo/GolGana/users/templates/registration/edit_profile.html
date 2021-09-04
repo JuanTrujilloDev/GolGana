@@ -12,10 +12,10 @@
 {% include 'registration/navegacion.html' %}
 <section class="editProfile h-100 d-flex justify-content-center">
 
-  <form action="." method="POST" class="mb-5">{% csrf_token %}
+  <form action="." method="POST" class="mb-5" id="personForm" data-cities-url = "{% url 'ajax_load_cities' %}">{% csrf_token %}
        
-    <nav class="nav navSecundaria d-flex justify-content-center mb-5 pt-3">
-      <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user me-1"></i>Perfil</a>
+    <nav class="nav navSecundaria d-flex justify-content-evenly mb-5 pt-3">
+      <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user me-1"></i>Mi Perfil</a>
       <a class="nav-link" href="#"><i class="fa fa-book me-1"></i>Historial</a>
       <a class="nav-link" href="{% url 'user:logout' %}"><i class="fa fa-sign-out me-1"></i>Salir</a>
     </nav>
@@ -122,4 +122,34 @@
   </form>
 
 </section>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$("#id_departamento").change(function () {
+  const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+  const depId = $(this).val();  // get the selected country ID from the HTML input
+
+  $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+      data: {
+          'id_departamento': depId      // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_ciudad").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+});
+</script>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms.widgets import ClearableFileInput
-from .models import PerfilCliente
+from .models import Ciudad, PerfilCliente
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Invisible, ReCaptchaV2Checkbox
 
@@ -45,14 +45,28 @@ class LoginCaptcha(AuthenticationForm):
 class ProfileUpdateForms(forms.ModelForm):
     class Meta:
         model = PerfilCliente
-        fields = ['nombre', 'apellido', 'image', 'telefono', 'direccion', 'tipo_documento', 'documento']
+        fields = ['nombre', 'apellido', 'image', 'telefono', 'direccion', 'tipo_documento', 'documento', 'departamento', 'ciudad']
     
     
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForms, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
-    
+        self.fields['ciudad'].queryset = Ciudad.objects.none()
+
+        if 'departamento' in self.data:
+            try:
+                departamento_id = int(self.data.get('departamento'))
+                self.fields['ciudad'].queryset = Ciudad.objects.filter(departamento_id = departamento_id).order_by('nombre')
+                
+            except(ValueError, TypeError):
+                pass
+        
+        elif self.instance.pk:
+            self.fields['ciudad'].queryset = self.instance.departamento.ciudad_set.order_by('nombre')
+        
+        
+        ###PASAR LA CIUDAD
 
 
 

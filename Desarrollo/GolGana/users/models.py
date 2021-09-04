@@ -6,6 +6,25 @@ from django.urls import reverse
 from PIL import Image
 from django.core.validators import RegexValidator
 
+#MODELO DEPARTAMENTOS
+class Departamento(models.Model):
+    nombre = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.nombre
+
+
+
+#MODELO CIUDADES
+class Ciudad(models.Model):
+    departamento = models.ForeignKey(Departamento, on_delete= models.CASCADE)
+    nombre = models.CharField(max_length=45)
+
+    def __str__(self):
+        nombre = self.nombre
+
+        return nombre
+
 
 def custom_upload_to(instance, filename):
     old_intance = PerfilCliente.objects.get(pk=instance.pk)
@@ -34,8 +53,8 @@ class PerfilCliente(models.Model):
     tipo_documento = models.CharField(max_length=300, choices = DOC_CHOICES)
     documento_regex = RegexValidator(regex='^[0-9]{13}$')
     documento = models.CharField(validators=[documento_regex],max_length=13, verbose_name="Numero de documento")
-    #Departamento -> Foreign Key
-    #ciudad -> Foreign Key
+    departamento = models.ForeignKey(Departamento, on_delete= models.CASCADE)
+    ciudad = models.ForeignKey(Ciudad, on_delete= models.CASCADE)
 
 
 
@@ -97,21 +116,3 @@ class PerfilCliente(models.Model):
 
 
 
-#MODELO DEPARTAMENTOS
-class Departamento(models.Model):
-    nombre = models.CharField(max_length=45)
-
-    def __str__(self):
-        return self.nombre
-
-
-
-#MODELO CIUDADES
-class Ciudad(models.Model):
-    departamento = models.ForeignKey(Departamento, on_delete= models.CASCADE)
-    nombre = models.CharField(max_length=45)
-
-    def __str__(self):
-        nombre = 'Departamento: ' + self.departamento.nombre + ' - Ciudad: ' + self.nombre
-
-        return nombre

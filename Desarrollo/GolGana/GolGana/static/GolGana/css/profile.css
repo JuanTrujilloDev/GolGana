@@ -58,6 +58,15 @@
     }
 }
 
+.navSecundaria{
+    border-bottom: 1px solid gray;
+}
+
+.navSecundaria .nav-link{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
 
 
 
