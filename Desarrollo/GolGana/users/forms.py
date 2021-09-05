@@ -52,8 +52,9 @@ class ProfileUpdateForms(forms.ModelForm):
         super(ProfileUpdateForms, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
-        self.fields['ciudad'].queryset = Ciudad.objects.none()
+        """ self.fields['ciudad'].queryset = Ciudad.objects.none() """
 
+#SI SE CREA UN PERFIL NUEVO ESTO DARA ERROR A LA HORA DE CARGAR LAS CIUDADES DEL DEPARTEMENTO 
         if 'departamento' in self.data:
             try:
                 departamento_id = int(self.data.get('departamento'))

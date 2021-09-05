@@ -154,14 +154,11 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-
 LOGIN_URL = 'user:login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'user:login_redirect'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'home'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

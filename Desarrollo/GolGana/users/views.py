@@ -49,15 +49,17 @@ def activate(request, uidb64, token):
 class createUserView(generic.CreateView):
     form_class = UserCreationFormWithEmail
     template_name = 'registration/sign-up.html'
+    redirect_authenticated_user = True
     model = User
     
-
-    def get_success_url(self):
+    """ def get_success_url(self):
         return reverse_lazy('user:login')
+    """
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated: return redirect('user:profile')
-        return super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated: return super().dispatch(request, *args, **kwargs)
+        return redirect('user:login')
+        
 
     def form_valid(self, form):
         # Gguarda el usurio en la base de datos pero con is_active = False
@@ -82,20 +84,20 @@ class createUserView(generic.CreateView):
         messages.success(self.request, 'Porfavor confirma tu email antes de ingresar.')
         return HttpResponseRedirect(reverse('user:login'))  
 
-    def get_context_data(self, **kwargs):
+"""     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tittle'] = "Registro - GolGana"
-        return context  
+        return context   """
 
 class CLoginView(LoginView):
     template_name = "registration/login.html"
     redirect_authenticated_user = True
     authentication_form = LoginCaptcha
 
-    def get_context_data(self, **kwargs):
+"""     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tittle'] = "Login - GolGana"
-        return context
+        return context """
     
 
 class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
@@ -103,20 +105,19 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     template_name = 'registration/edit_profile.html'
     model = PerfilCliente
 
-
-
     ###SE CAMBIO EL GET OBJECT PORQUE TRAIA SIEMPRE AL REQUEST USER OBJECT 
     # Y NO DEBE SER ASI POR EL SLUG!!!!
     def get_success_url(self):
         return reverse_lazy('user:profile', kwargs={'slug': self.get_object().slug})
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.POST:
+        """ if self.request.POST:
             context['email'] = EmailForms(self.request.POST, instance = self.request.user)
-        else:
-            context['email'] = EmailForms(instance = self.request.user)
-        context["tittle"] = "Actualizacion de perfil"
+        else: """
+        context['email'] = EmailForms(instance = self.request.user)
+        """ context["tittle"] = "Actualizacion de perfil" """
         return context
 
 
@@ -125,7 +126,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     def get(self, request, *args, **kwargs):
         object = self.get_object()
         ##REDIRIGIR A ACCESO DENEGADO!!
-        if object.usuario != self.request.user or request.user.groups.filter(name = "Cliente").exists():return super().get(request, *args, **kwargs)
+        if object.usuario == self.request.user and request.user.groups.filter(name = "Cliente").exists():return super().get(request, *args, **kwargs)
         return redirect(reverse('home'))
         
     
