@@ -28,6 +28,7 @@
         <h1>{{object.nombre}} {{object.apellido}}</h1>
         <h5>Nombre de usuario: {{object.usuario.username}}</h5>
         <h5>Miembro desde: {{object.usuario.date_joined|date:'d M, Y'}}</h5>
+        <h5>Cambiar Contraseña: <a href="{% url 'password_change'%}">Click aqui</a></h5>
       </div>
     </div>
     <h1>Información Personal:</h1>
