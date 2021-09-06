@@ -9,6 +9,7 @@ post_patterns = ([
     path('accounts/cliente/<slug:slug>/edit-profile/', views.ProfileUpdate.as_view(), name='edit-profile'),
     path('login/', views.CLoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
+    ###AGREGAR QUE SI EL CORREO NO EXISTE NO DEJE ENVIAR PASSWORD RESET
     path('accounts/password-change/', PasswordChangeView.as_view(success_url='/'), name="password-change"),
     path('social/success', views.socialSuccess, name="social-success"),
     path('redirect/account', views.login_redirect, name="login_redirect"),
