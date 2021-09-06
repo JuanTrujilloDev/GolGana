@@ -6,6 +6,9 @@ from .models import Ciudad, PerfilCliente
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Invisible, ReCaptchaV2Checkbox
 
+
+###MENSAJES!!!!!!!!!!!!
+
 class UserCreationFormWithEmail(UserCreationForm):
     email = forms.EmailField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu correo electronico'}))
     username = forms.CharField(required=True, help_text=None, widget=forms.TextInput(attrs={'placeholder':'Digita tu usuario'}))
@@ -52,7 +55,7 @@ class ProfileUpdateForms(forms.ModelForm):
         super(ProfileUpdateForms, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
-        """ self.fields['ciudad'].queryset = Ciudad.objects.none() """
+            self.fields['ciudad'].queryset = Ciudad.objects.none() 
 
 #SI SE CREA UN PERFIL NUEVO ESTO DARA ERROR A LA HORA DE CARGAR LAS CIUDADES DEL DEPARTEMENTO 
         if 'departamento' in self.data:
@@ -62,9 +65,12 @@ class ProfileUpdateForms(forms.ModelForm):
                 
             except(ValueError, TypeError):
                 pass
-        
+        ###SOLUCION CUANDO LA CIUDAD ESTA NULL
         elif self.instance.pk:
-            self.fields['ciudad'].queryset = self.instance.departamento.ciudad_set.order_by('nombre')
+            try:
+                self.fields['ciudad'].queryset = self.instance.departamento.ciudad_set.order_by('nombre')
+            except:
+                pass
         
         
         ###PASAR LA CIUDAD

@@ -21,8 +21,9 @@
             <p class="item" id="messages">{{ message }}</p>
             {% endfor%}
             {% if form.non_field_errors %}
-                    <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
-                    {% endif %}
+            <!--AGREGAR QUE EL USUARIO NO ESTA AUTENTICADO Y REVISE EL PERFIL-->
+                    {{form.non_field.errors}}
+            {% endif %}
             <div class="form-group py-2">
                 <div class="input-field"> <span class="fa fa-user p-2"></span> <input type="text" placeholder="Usuario" required name="username"> </div>
             {{form.username.errors}}

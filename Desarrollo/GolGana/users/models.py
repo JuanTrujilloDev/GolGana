@@ -51,10 +51,10 @@ class PerfilCliente(models.Model):
     telefono = models.CharField(validators=[phone_regex], max_length=10, verbose_name="Telefono")
     direccion = models.CharField(max_length= 70, verbose_name="Direccion")
     tipo_documento = models.CharField(max_length=300, choices = DOC_CHOICES)
-    documento_regex = RegexValidator(regex='^[0-9]{10}$')
+    documento_regex = RegexValidator(regex='^[0-9]{6,10}$')
     documento = models.CharField(validators=[documento_regex],max_length=13, verbose_name="Numero de documento")
-    departamento = models.ForeignKey(Departamento, on_delete= models.DO_NOTHING, null=True, blank=True)
-    ciudad = models.ForeignKey(Ciudad, on_delete= models.DO_NOTHING, null=True, blank=True)
+    departamento = models.ForeignKey(Departamento, on_delete= models.SET_NULL, null=True, blank=True)
+    ciudad = models.ForeignKey(Ciudad, on_delete= models.SET_NULL, null=True, blank=True)
 
 
 

@@ -6,7 +6,6 @@ from django.contrib.auth.views import LogoutView, PasswordChangeView
 post_patterns = ([
     path('registro/', views.createUserView.as_view(), name='signup'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-    path('accounts/cliente/<slug:slug>/', views.Profile.as_view(), name='profile'),
     path('accounts/cliente/<slug:slug>/edit-profile/', views.ProfileUpdate.as_view(), name='edit-profile'),
     path('login/', views.CLoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
