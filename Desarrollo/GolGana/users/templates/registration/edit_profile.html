@@ -10,31 +10,32 @@
 
 {% block content %}
 {% include 'registration/navegacion.html' %}
-<section class="editProfile h-100 d-flex justify-content-center">
+<section class="editProfile row">
 
-  <form action="." method="POST" class="mb-5" id="personForm" data-cities-url = "{% url 'ajax_load_cities' %}">{% csrf_token %}
-       
-    <nav class="nav navSecundaria d-flex justify-content-evenly mb-5 pt-3">
-      <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user me-1"></i>Mi Perfil</a>
-      <a class="nav-link" href="#"><i class="fa fa-book me-1"></i>Historial</a>
-      <a class="nav-link" href="{% url 'user:logout' %}"><i class="fa fa-sign-out me-1"></i>Salir</a>
-    </nav>
+  <div class="OptionUser card mb-auto col-md-3" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+  <li class="list-group-item active"><a href="#">Editar Perfil</a></li>
+  <li class="list-group-item"><a href="#">Alquilar Canchas</a></li>
+  <li class="list-group-item"><a href="#">Notificaciones</a></li>
+  <li class="list-group-item"><a href="{% url 'password_change'%}">Cambiar Contraseña</a></li>
+  <li class="list-group-item"><a href="{% url 'user:logout' %}">Salir</a></li>
+    </ul>
+  </div>
+
+  
+  <form action="." method="POST" class="mb-5 col-md-5" id="personForm" data-cities-url = "{% url 'ajax_load_cities' %}">{% csrf_token %}
     <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row mb-4">
+      <h1 class="mb-5" style="color:#f3f4f5;">Mi perfil</h1>
       <div class="col">
+        <h3 style="color:#f3f4f5;">Foto</h3><br>
        <img src="{{object.image.url}}" class="rounded-circle">
       </div>
-      <div class="col">
-        <h1>{{object.nombre}} {{object.apellido}}</h1>
-        <h5>Nombre de usuario: {{object.usuario.username}}</h5>
-        <h5>Miembro desde: {{object.usuario.date_joined|date:'d M, Y'}}</h5>
-        <h5>Cambiar Contraseña: <a href="{% url 'password_change'%}">Click aqui</a></h5>
-      </div>
     </div>
-    <h1>Información Personal:</h1>
+    <h2>Información Personal:</h2>
     <hr>
     <div class="row">
-    <h4 class="text-muted">Ingresa tus datos:</h4>
+    <h5 class="text-muted">Ingresa tus datos:</h5>
     <!-- Text input -->
     <div class="col">
     <div class="form-outline mb-4">
@@ -70,9 +71,9 @@
         </div>
       </div>
       </div>
-      <h1>Datos de facturacion:</h1>
+      <h2>Datos de facturacion:</h2>
       <hr>
-      <h4 class="text-muted">Actualiza tus datos de domicilio:</h4>
+      <h5 class="text-muted">Actualiza tus datos de domicilio:</h5>
       <div class="row">
         <!-- Text input -->
         <div class="col">
@@ -113,11 +114,7 @@
           <label class="form-label" for="form6Example3">Dirección</label>
           {{form.direccion}}
           {{form.direccion.errors}}
-        </div>
-       
-  
-
-  
+        </div>        
     <!-- Submit button -->
     <button type="submit" class="btn btn-primary btn-block mb-4">Guardar</button>
   </form>

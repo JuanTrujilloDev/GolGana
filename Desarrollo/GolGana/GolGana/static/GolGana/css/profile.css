@@ -1,53 +1,36 @@
 /* BARRAS DE NAVEGACION PERFIL */
 
-
 .navegacion .navbar{
-    background-color: #5B1CE3;  
-}
-
-.image-link{
-    opacity: 1 !important;
+    border-bottom: 1px solid rgb(51, 51, 51) !important;
+    background-color: transparent !important;  
 }
 
 .navbar .navbar-brand{
+    color: #A4E31D !important;
     opacity: 1!important;
 }
 
 .navegacion .navbar .nav-link{
     color: #f3f4f5;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-family: 'Nunito', sans-serif !important;
-    opacity: 0.5;
+    opacity: 1;
     margin-left:3px;
     margin-right: 3px;
 }
 
 .navegacion .navbar .active{
-    color: #A4E31D!important;
-    font-weight: bold!important;
-    border-bottom: 1px solid #A4E31D;
-    opacity: 1;
+    color:#A4E31D!important;
+}
+.navegacion .OptionMobile a{
+    text-decoration:  none !important;
 }
 
-.navegacion .navbar:active{
-    color: #A4E31D !important;
-    font-weight: bold!important;
+.navegacion .navbar-nav .nav-link{
+    display:none!important;
 }
 
-.navegacion .navbar .nav-link:hover{
-    color: #A4E31D;
-    opacity: 1;
-}
-
-.navegacion .navbar .navbar-toggler{
-    border-color:#A4E31D;
-}
-
-.navegacion .navbar .navbar-toggler-icon{
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(164, 227, 29, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important;
-      
-}
 
 @media (max-width:1000px){
     .navbar .active{
@@ -55,6 +38,14 @@
     }
     .image-link{
         display: none;
+    }
+    
+    .navegacion .navbar-nav .nav-link{
+        display:table!important;
+    }
+
+    .editProfile .OptionUser{
+        display:none!important;
     }
 }
 
@@ -67,47 +58,31 @@
     font-size: 2rem;
 }
 
-
-
-
-
-
-
 /*PROFILE*/
-
-
-
-
-
-
-
 
 
 
 /*EDIT-PROFILE*/
 
 .editProfile form{
-    background-color: #f3f4f5;
+    background-color: transparent !important;
     border-radius: 25px;
     padding: 0% 5% 5% 5%;
     min-width: 60%;
 }
 
 
-.editProfile h1, .editProfile h5{
-    color:#5B1CE3!important;
-}
-
-.editProfile h4{
-
+.editProfile h2, .editProfile h6, .editProfile h1{
+    color:#A4E31D!important;
 }
 
 .editProfile img{
-    width:75%!important;
+    width: 200px !important;
+    height: 200px !important;
 }
 
 .editProfile label{
-    color:#5B1CE3;
+    color:#f3f4f5;
     font-weight: bold;
 }
 
@@ -116,13 +91,53 @@
 }
 
 .editProfile hr{
-    color:#5B1CE3;
+    color:#A4E31D !important;
     opacity: 1;
     width: 60%;
 }
 
 .editProfile .btn{
     width:100%;
-    background-color: #5B1CE3;
+    background-color: #A4E31D !important;
     border: none;
 }
+
+.editProfile .card {
+    border: none !important;
+    background-color: transparent !important;
+    margin-right: 10px !important;
+    margin-left: 30px !important;
+}
+.editProfile .list-group-item{
+    border: none !important;
+    background-color: transparent !important;
+}
+.editProfile a{
+    font-weight: lighter !important;
+    font-family: 'Nunito', sans-serif !important;
+    color: #f3f4f5 !important;
+    text-decoration: none !important;
+}
+
+.editProfile a:hover{
+    color: #A4E31D !important;
+    font-weight: bold !important;
+}
+
+.editProfile .active{
+    color: #A4E31D !important;
+    border-left: 2px solid #A4E31D !important;
+}
+
+.editProfile .active a{
+    color:#A4E31D !important;
+    font-weight: bold !important;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(164,227,29, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .custom-toggler.navbar-toggler {
+    border-color: rgb(164,227,29);
+  } 
