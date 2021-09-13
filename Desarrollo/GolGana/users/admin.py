@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ciudad, Departamento, PerfilCliente
+from .models import Ciudad, Departamento, PerfilCliente, PerfilEmpresa, PerfilModerador, User
 # Register your models here.
 
 
@@ -13,6 +13,9 @@ class DepAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PerfilCliente)
+admin.site.register(PerfilEmpresa)
+admin.site.register(PerfilModerador)
+admin.site.register(User)
 admin.site.register(Departamento, DepAdmin)
 admin.site.register(Ciudad, CiudadAdmin)
 

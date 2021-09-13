@@ -11,7 +11,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from .models import User
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from .forms import ProfileUpdateForms
@@ -66,8 +67,6 @@ class createUserView(generic.CreateView):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
-        grupo = Group.objects.get(name = 'Cliente')
-        user.groups.add(grupo)
         # Send confirmation email
         current_site = get_current_site(self.request)
         subject = 'Activate Your ' + current_site.domain + ' Account'
@@ -126,9 +125,9 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     def get(self, request, *args, **kwargs):
         object = self.get_object()
         ##REDIRIGIR A ACCESO DENEGADO!!
-        if object == request.user.perfilcliente and request.user.groups.filter(name = "Cliente").exists():
+        grupo = Group.objects.filter(name="Cliente").first()
+        if object == request.user.perfilcliente and request.user.groups == grupo:
             return super().get(self, request, *args, **kwargs)
-        
         return redirect(reverse('home'))
         
     
@@ -144,7 +143,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
 def socialSuccess(request):
     defaultgroup = Group.objects.get(name = 'Cliente')
     user = request.user
-    user.groups.add(defaultgroup)
+    user.groups = defaultgroup
 
     return redirect('user:login')
 

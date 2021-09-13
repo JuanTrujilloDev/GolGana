@@ -32,8 +32,11 @@ INSTALLED_APPS = [
     'social_django',
     'crispy_forms',
     'GolGana',
+    'canchas',
     
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 
 

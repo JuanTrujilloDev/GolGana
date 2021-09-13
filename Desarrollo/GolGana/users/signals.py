@@ -1,92 +1,60 @@
 
-from django.db.models.signals import m2m_changed
-from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
+from django.contrib.auth.models import Group
 from django.dispatch import receiver
-from .models import PerfilCliente
+from .models import PerfilCliente, PerfilEmpresa, PerfilModerador, User
 
 
 ##PERFIL POR FORMULARIO
-@receiver(m2m_changed, sender = User.groups.through)
-def agregarPerfil(instance, action, reverse, *args, **kwargs):
+@receiver(post_save, sender = User)
+def agregarPerfil(instance, sender, created, **kwargs):
     grupo_cliente = Group.objects.get(name = "Cliente")
     grupo_empresa = Group.objects.get(name = "Empresa")
     grupo_moderador = Group.objects.get(name = "Moderador")
     
+
+
+    if created:
+        instance.groups = grupo_cliente
+        PerfilCliente.objects.get_or_create(usuario = instance)
+        instance.save()
     
-    if action == "post_add":
-        
 
+    else:
 
-        if  grupo_cliente in instance.groups.all():
-            try:
-                perfil = PerfilCliente.objects.get(usuario = instance)
-            except:
-                perfil = None
-
-            finally:
-                if perfil == None:
-                    PerfilCliente.objects.create(usuario = instance)
-
-        elif grupo_empresa in instance.groups.all():
-            '''
-            SE TRAE EL PERFIL EMPRESA
-            try:
+        if instance.groups == grupo_cliente:
+            if PerfilEmpresa.objects.filter(usuario = instance):
                 perfil = PerfilEmpresa.objects.get(usuario = instance)
-            except:
-                perfil = None
+                perfil.delete()
 
-            finally:
-                if perfil == None:
-                    PerfilEmpresa.objects.create(usuario = instance)'''
-
-        elif grupo_moderador in instance.groups.all():
-            '''
-            SE TRAE EL PERFIL Moderador
-            try:
+            elif PerfilModerador.objects.filter(usuario = instance):
                 perfil = PerfilModerador.objects.get(usuario = instance)
-            except:
-                perfil = None
+                perfil.delete()
+            
+            PerfilCliente.objects.get_or_create(usuario = instance)
 
-            finally:
-                if perfil == None:
-                    PerfilModerador.objects.create(usuario = instance)'''
+        elif instance.groups == grupo_empresa:
 
-    if action == "pre_remove":
-
-        if  grupo_cliente in instance.groups.all():
-            try:
+            if PerfilCliente.objects.filter(usuario = instance):
                 perfil = PerfilCliente.objects.get(usuario = instance)
-            except:
-                perfil = None
+                perfil.delete()
 
-            finally:
-                if perfil != None:
-                    perfil.delete()
+            elif PerfilModerador.objects.filter(usuario = instance):
+                perfil = PerfilModerador.objects.get(usuario = instance)
+                perfil.delete()
+            
+            PerfilEmpresa.objects.get_or_create(usuario = instance)
 
-        elif grupo_empresa in instance.groups.all():
-            '''
-            SE TRAE EL PERFIL EMPRESA
-             try:
+        elif instance.groups == grupo_moderador:
+
+            if PerfilCliente.objects.filter(usuario = instance):
                 perfil = PerfilCliente.objects.get(usuario = instance)
-            except:
-                perfil = None
+                perfil.delete()
 
-            finally:
-                if perfil != None:
-                    perfil.delete()'''
-
-        elif grupo_moderador in instance.groups.all():
-            '''
-            SE TRAE EL PERFIL Moderador
-             try:
-                perfil = PerfilCliente.objects.get(usuario = instance)
-            except:
-                perfil = None
-
-            finally:
-                if perfil != None:
-                    perfil.delete()'''
-
-
-
+            elif PerfilEmpresa.objects.filter(usuario = instance):
+                perfil = PerfilEmpresa.objects.get(usuario = instance)
+                perfil.delete()
+                
+            
+            PerfilModerador.objects.get_or_create(usuario = instance)
 

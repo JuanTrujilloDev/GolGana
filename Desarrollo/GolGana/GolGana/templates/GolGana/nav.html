@@ -30,11 +30,11 @@
               <li class="nav-item">
                 <li class="nav-item">
                   {% if request.user.perfilcliente %}
-                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfilcliente.slug %}">Mi Perfil</a>
-                  {% elif request.user.perfiladministrador %}
-                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfiladministrador.slug %}">Mi Perfil</a>
+                  <a class="nav-link" href="{% url 'user:edit-profile-cliente' request.user.perfilcliente.slug %}">Mi Perfil</a>
+                  {% elif request.user.perfilempresa %}
+                  <a class="nav-link" href="{% url 'user:edit-profile-empresa' request.user.perfiladministrador.slug %}">Mi Perfil</a>
                   {% elif request.user.perfilmoderador %}
-                  <a class="nav-link" href="{% url 'user:edit-profile' request.user.perfilmoderador.slug %}">Mi Perfil</a>
+                  <a class="nav-link" href="{% url 'user:edit-profile-moderador' request.user.perfilmoderador.slug %}">Mi Perfil</a>
                   {% endif %}
                 </li>
                 <li class="nav-item">
