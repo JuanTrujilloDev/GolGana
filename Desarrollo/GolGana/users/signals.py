@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import Group
 from django.dispatch import receiver
 from .models import PerfilCliente, PerfilEmpresa, PerfilModerador, User
+from canchas.models import Empresa
 
 
 ##PERFIL POR FORMULARIO
@@ -43,7 +44,8 @@ def agregarPerfil(instance, sender, created, **kwargs):
                 perfil = PerfilModerador.objects.get(usuario = instance)
                 perfil.delete()
             
-            PerfilEmpresa.objects.get_or_create(usuario = instance)
+            perfil = PerfilEmpresa.objects.get_or_create(usuario = instance)[0]
+            Empresa.objects.get_or_create(encargado = perfil)
 
         elif instance.groups == grupo_moderador:
 

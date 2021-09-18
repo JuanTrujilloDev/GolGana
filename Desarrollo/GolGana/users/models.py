@@ -78,6 +78,14 @@ class PerfilCliente(models.Model):
     def __str__(self) -> str:
         return self.usuario.username
 
+
+
+
+
+
+
+
+
 ## MODELO PERFIL EMPRESA
 class PerfilEmpresa(models.Model):
     
