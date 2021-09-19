@@ -1,0 +1,53 @@
+{% load static %}
+{% load customtags %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="{% static 'GolGana/img/GolGana_6.svg' %}"style="max-width:40px;" onmouseover="this.src='{% static  'GolGana/img/soccerblanco.svg' %}'" onmouseout="this.src='{% static  'GolGana/img/GolGana_6.svg' %}'"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'user:login' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#aboutIndex">Acerca de</a>
+          </li>
+
+          
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:signup' %}">Registrate</a>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:login' %}">Iniciar Sesión</a>
+            </li>
+
+          {% else %}
+            
+            <!--LINKS PARA EL CLIENTE-->
+              {% if request.user|ver_group:"Cliente" %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'user:edit-profile-cliente' request.user.perfilcliente.slug %}">Mi Perfil</a></li>
+              
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'user:login' %}">Reservar</a>
+                </li>
+
+            <!--LINKS PARA EL ADMINISTRADOR-->
+            {% elif request.user|ver_group:"Empresa" %}
+             <li class="nav-item"><a class="nav-link" href="#">Mi Perfil</a></li> 
+
+            <!--LINKS PARA EL MODERADOR-->
+            {% elif request.user|ver_group:"Moderador" %}
+             <li class="nav-item"><a class="nav-link" href="#">Mi Perfil</a></li> 
+
+              {% endif %}
+      
+            
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
