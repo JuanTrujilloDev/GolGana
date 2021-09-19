@@ -12,7 +12,7 @@
 {% include 'registration/navegacion.html' %}
 <section class="editProfile row">
 
-  {% include 'menu-izquierda.html' %}
+  {% include 'registration/menu-izquierda.html' %}
 
   
   <form action="." method="POST" class="mb-5 col-md-5" id="personForm" data-cities-url = "{% url 'ajax_load_cities' %}">{% csrf_token %}

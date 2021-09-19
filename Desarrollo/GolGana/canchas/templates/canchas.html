@@ -5,9 +5,9 @@
 <link href="{% static 'GolGana/css/cancha.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-{% include 'GolGana/navegacion-index.html' %}
-<section class="row seccionCanchas">
 
+<section class="row seccionCanchas">
+    {% include 'GolGana/navegacion-index.html' %}
    
     
         <div class="mapa col-md-6">
@@ -17,9 +17,10 @@
         </div>
 
         <div class="canchas col-md-6 col-sm-12">
-            <h2 class="text-start mx-3" style="text-align: center;">¡Encuentra tu cancha ideal!</h2>
+            
 
             <div class="col-md-12 ">
+                
                 <ul class="nav d-flex justify-content-around numJugadores">
                     <li class="nav-item">
                       <h4><a class="nav-link active" aria-current="page" href="#">Fútbol 5</a></h4>
@@ -43,6 +44,7 @@
             </div>
             
             <ul class="list-group contentCard">
+                <h2 class="text-start mx-3" style="text-align: center;">¡Encuentra tu cancha ideal!</h2>
                 <form class="d-flex mb-3 mt-3 px-3">
                     <input class="form-control me-2" type="search" placeholder="Busca tu cancha por nombre o ciudad." aria-label="Search">
                     <button class="btn btn-outline-success buscar" type="submit">Search</button>
@@ -51,7 +53,7 @@
                 {% if empresa.departamento and empresa.get_jugadores %}
                  <li class="listcanchas list-group-item">
                     <div class="contenedorCanchas d-flex row ">
-                        <div class="cancha col-md-4 col-sm-12 col-xs-12 text-sm-center text-md-start"><img class="imgcancha" src="{% static 'GolGana/img/cancha1.jpg' %}"style="max-width:100%;" /></div>
+                        <div class="cancha col-md-4 col-sm-12 col-xs-12 text-sm-center text-md-start"><img class="imgcancha" src="{{empresa.image.url}}"style="max-width:100%;" /></div>
                         <div class="bodycancha col-md-8 col-xs-12">
                             <div class="row">
                                 {% if empresa.get_jugadores %}

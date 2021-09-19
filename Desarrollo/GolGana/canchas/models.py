@@ -38,7 +38,7 @@ class Empresa (models.Model):
         super().save(*args, **kwargs)
         img = self.image
         img = Image.open(img)
-        size = (300,300)
+        size = (600,300)
         thumb = img.resize(size)
         thumb.save(self.image.path)
     

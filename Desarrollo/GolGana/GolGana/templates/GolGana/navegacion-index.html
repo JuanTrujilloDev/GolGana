@@ -1,5 +1,6 @@
 {% load static %}
 {% load customtags %}
+<!--ESTO ES PARA TODO SOBRE LAS CANCHAS-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><img src="{% static 'GolGana/img/GolGana_6.svg' %}"style="max-width:40px;" onmouseover="this.src='{% static  'GolGana/img/soccerblanco.svg' %}'" onmouseout="this.src='{% static  'GolGana/img/GolGana_6.svg' %}'"></a>
@@ -9,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'user:login' %}">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home-next' %}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#aboutIndex">Acerca de</a>
@@ -29,19 +30,20 @@
             
             <!--LINKS PARA EL CLIENTE-->
               {% if request.user|ver_group:"Cliente" %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'user:edit-profile-cliente' request.user.perfilcliente.slug %}">Mi Perfil</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'user:edit-profile-cliente' request.user.perfilcliente.slug %}">{{request.user.username}} <img class="" src="{{request.user.perfilcliente.image.url}}"></a></li>
               
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'user:login' %}">Reservar</a>
+                  <a class="nav-link" href="{% url 'home-next' %}">Reservar</a>
                 </li>
+
 
             <!--LINKS PARA EL ADMINISTRADOR-->
             {% elif request.user|ver_group:"Empresa" %}
-             <li class="nav-item"><a class="nav-link" href="#">Mi Perfil</a></li> 
+             <li class="nav-item"><a class="nav-link" href="#">{{request.user.username}}{{request.user.perfilempresa.nombre}} <img class="" src="{{request.user.perfilempresa.image.url}}"></a></li> 
 
             <!--LINKS PARA EL MODERADOR-->
             {% elif request.user|ver_group:"Moderador" %}
-             <li class="nav-item"><a class="nav-link" href="#">Mi Perfil</a></li> 
+             <li class="nav-item"><a class="nav-link" href="#">{{request.user.username}} <img class="" src="{{request.user.perfilmoderador.image.url}}"></a></li> 
 
               {% endif %}
       

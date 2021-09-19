@@ -210,4 +210,16 @@ h2,h4{
  
 }
 
+.seccionCanchas .navbar{
+    background-color: #5B1CE3!important;
+}
+
+
+.seccionCanchas .nav-link{
+    color:#f3f4f5!important;
+    font-weight: bold;
+}
+.seccionCanchas .nav-link:hover{
+    color: #A4E31D !important;
+}
 
