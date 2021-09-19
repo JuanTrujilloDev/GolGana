@@ -1,0 +1,83 @@
+{% extends 'GolGana/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'GolGana/css/cancha.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<section class="row seccionCanchas">
+
+   
+    
+        <div class="mapa col-md-6">
+            <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Neiva+Huila" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="canchas col-md-6 col-sm-12">
+            <h2 class="text-start mx-3" style="text-align: center;">¡Encuentra tu cancha ideal!</h2>
+
+            <div class="col-md-12 ">
+                <ul class="nav d-flex justify-content-around numJugadores">
+                    <li class="nav-item">
+                      <h4><a class="nav-link active" aria-current="page" href="#">Fútbol 5</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link " aria-current="page" href="#">Fútbol 6</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link " aria-current="page" href="#">Fútbol 7</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link " aria-current="page" href="#">Fútbol 8</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link " aria-current="page" href="#">Fútbol 10</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link " aria-current="page" href="#">Fútbol 11</a></h4>
+                    </li>
+                  </ul>
+            </div>
+            
+            <ul class="list-group contentCard">
+                <form class="d-flex mb-3 mt-3 px-3">
+                    <input class="form-control me-2" type="search" placeholder="Busca tu cancha por nombre o ciudad." aria-label="Search">
+                    <button class="btn btn-outline-success buscar" type="submit">Search</button>
+                  </form>
+                {% for empresa in object_list %}
+                {% if empresa.departamento and empresa.get_jugadores %}
+                 <li class="listcanchas list-group-item">
+                    <div class="contenedorCanchas d-flex row ">
+                        <div class="cancha col-md-4 col-sm-12 col-xs-12 text-sm-center text-md-start"><img class="imgcancha" src="{% static 'GolGana/img/cancha1.jpg' %}"style="max-width:100%;" /></div>
+                        <div class="bodycancha col-md-8 col-xs-12">
+                            <div class="row">
+                                {% if empresa.get_jugadores %}
+                                <div class="col-xs-4"><h6>Fútbol{% for n in empresa.get_jugadores %} 
+                                    {% if forloop.last %}
+                                    {{n}}
+                                    {% else %}
+                                    {{n}} |
+                                    {% endif %}
+                                    
+                                    {%endfor%}<svg width="22" height="20"><path fill="#f3f4f5" d="M1 1v14.421h4.258v-.594H1.594v-2.83H5.2V4.423H1.594v-2.83h9.111V4.97a3.257 3.257 0 00-2.958 3.24 3.257 3.257 0 002.958 3.239v3.377H6.051v.594H21V1H1zm3.605 4.019v6.383h-3.01V5.02h3.01zm6.1 5.834A2.663 2.663 0 018.341 8.21a2.663 2.663 0 012.364-2.643v5.285zm.594-5.284a2.663 2.663 0 012.36 2.642 2.663 2.663 0 01-2.36 2.641V5.57zm9.107 5.833h-3.01V5.02h3.01v6.383zm0-6.978H16.8v7.573h3.605v2.83h-9.107v-3.378a3.257 3.257 0 002.954-3.238c0-1.693-1.3-3.088-2.954-3.24V1.595h9.107v2.83z"></path></svg></h6></div>
+                                {% endif %}
+                                <div class="col-xs-8"><h2>{{empresa.nombre}}</h2></div>
+                               
+                            </div>
+                            
+                            
+                            <h5 class="descripcion">{{empresa.descripcion|linebreaks}}</h5>
+                            {% if empresa.departamento %}<h6><i class="fas fa-map-marker-alt"></i> {{empresa.departamento}}, {{empresa.ciudad}}</h6>{% endif %}
+                            <a class="btn btn-primary alquilar">¡Alquilar!</a>
+                        </div>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+        </div>
+    
+</section>
+{% endblock %}

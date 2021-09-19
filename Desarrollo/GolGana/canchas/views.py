@@ -10,8 +10,10 @@ from .models import Cancha, Empresa, Reserva
 class ListaEmpresas(LoginRequiredMixin, ListView):
     model = Empresa
     #template de la vista
-    #Aca se listan las empresas
-    #Esta solo la puede ver el cliente.
+    template_name = "canchas.html"
+    paginate_by = 10
+    #Aca se listan las empresas 
+
 
 
 class DetalleEmpresa(LoginRequiredMixin, DetailView):

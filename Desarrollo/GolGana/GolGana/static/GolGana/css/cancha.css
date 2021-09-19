@@ -1,0 +1,213 @@
+h2,h4{
+    color: #A4E31D !important;
+}
+
+/* BARRAS DE NAVEGACION PERFIL */
+
+.navegacion .navbar{
+    border-bottom: 1px solid rgb(51, 51, 51) !important;
+    background-color: transparent !important;  
+}
+
+.navbar .navbar-brand{
+    color: #A4E31D !important;
+    opacity: 1!important;
+}
+
+.navegacion .navbar .nav-link{
+    color: #f3f4f5;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Nunito', sans-serif !important;
+    opacity: 1;
+    margin-left:3px;
+    margin-right: 3px;
+}
+
+.navegacion .navbar .active{
+    color:#A4E31D!important;
+}
+.navegacion .OptionMobile a{
+    text-decoration:  none !important;
+}
+
+.navegacion .navbar-nav .nav-link{
+    display:none!important;
+}
+
+
+@media (max-width:1000px){
+    .navbar .active{
+        border-bottom: none!important;
+    }
+    .image-link{
+        display: none;
+    }
+    
+    .navegacion .navbar-nav .nav-link{
+        display:table!important;
+    }
+
+    .editProfile .OptionUser{
+        display:none!important;
+    }
+}
+
+/*-->Mapa<--*/
+@media (max-width:767px){
+    .mapa{
+        display:none;
+    }
+}
+.mapa{
+    overflow:hidden;
+    position:relative;
+    height:100%!important;
+}
+.mapa iframe{
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+/*-->Cards<--*/
+.seccionCanchas{
+    overflow-y:hidden!important;
+    height:100vh;
+}
+
+
+.canchas{
+   
+    padding-left:0;
+    
+    height:100%;
+}
+.contentCard{
+    height:100%;
+    overflow-y:auto!important;
+    padding-bottom:10%;
+}
+
+/* width */
+.contentCard::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .contentCard::-webkit-scrollbar-track {
+    background: transparent!important; 
+  }
+   
+  /* Handle */
+ .contentCard::-webkit-scrollbar-thumb {
+    background: #5B1CE3; 
+    border-radius: 5%;
+  }
+  
+  /* Handle on hover */
+  .contentCard::-webkit-scrollbar-thumb:hover {
+    background: rgb(140, 87, 255); 
+  }
+
+
+.listcanchas{
+    border-right: none !important;
+    border-top:none !important;
+    border-bottom:1px solid rgb(70, 70, 70)  ;
+    background: transparent !important;
+    color: #f3f4f5 !important;
+    
+}
+
+.imgcancha{
+    align-items: right !important;
+    border-radius: 8px;
+    max-height: 150px;
+    max-width: 300px;
+    min-width: 140px;
+    min-height: 70px;
+}
+
+.seccionCanchas .alquilar{
+    font-weight: bold !important;
+    border: none !important;
+    background: #5B1CE3 !important;
+    color:  #A4E31D!important;
+    width: 25%;
+}
+.seccionCanchas .alquilar:hover{
+    font-weight: bold !important;
+    border: none !important;
+    background: #A4E31D !important;
+    color:  #5B1CE3!important;
+}
+
+.seccionCanchas input{
+   border:1px solid #5b1ce333 !important;
+   font-weight: bold !important;
+   background: rgb(24, 24, 24);
+   color:white!important;
+  
+}
+
+.seccionCanchas input::placeholder{
+    color:#f3f4f577;
+    
+}
+.seccionCanchas input:focus{
+    background: rgb(24, 24, 24) !important;
+    border:2px solid #7b43f393 !important;
+    outline-width: 0!important;
+    outline: none;
+    box-shadow: none;
+
+}
+.seccionCanchas .buscar{
+    border: none !important;
+    background: #5B1CE3 !important;
+    color: #A4E31D !important;
+}
+.seccionCanchas .buscar:hover{
+    border: none !important;
+    background: #A4E31D !important;
+    color: #5B1CE3!important;
+}
+
+.seccionCanchas h6{
+    font-weight:bold;
+}
+
+.seccionCanchas .descripcion{
+    overflow:hidden;
+    word-break:break-all;
+}
+
+.seccionCanchas .numJugadores .nav-link{
+    background-color: transparent;
+}
+
+.numJugadores .nav-link{
+    color:#f3f4f5;
+}
+
+.numJugadores .active{
+    border-bottom:2px solid #5B1CE3;
+}
+
+@media (max-width:768px){
+    .numJugadores{
+        display: none!important;
+    }
+
+   
+    
+    .contenedorCanchas .imgcancha{
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+ 
+}
+
+

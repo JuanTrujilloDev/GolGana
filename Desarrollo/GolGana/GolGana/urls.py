@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('', Home.as_view(), name="home"),
     path('ajax/load-cities', load_cities, name = 'ajax_load_cities'),
+    path('', include('canchas.urls')),
 
     path('accounts/', include('django.contrib.auth.urls')),
 ]

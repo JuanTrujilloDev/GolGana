@@ -15,7 +15,8 @@ class Empresa (models.Model):
 
 
     nombre = models.CharField(max_length=40, verbose_name="Nombre", default="Nombre Empresa")
-    encargado = models.ForeignKey(PerfilEmpresa, on_delete=models.CASCADE)
+    encargado = models.OneToOneField(PerfilEmpresa, on_delete=models.CASCADE)
+    descripcion = models.TextField(max_length= 120, verbose_name="Descripcion")
     direccion = models.CharField(max_length=70, verbose_name="Direccion")
     ciudad = models.ForeignKey(Ciudad, null=True, on_delete=models.SET_NULL, verbose_name="Ciudad")
     departamento = models.ForeignKey(Departamento, null=True, on_delete=models.SET_NULL, verbose_name="Departamento")
@@ -43,6 +44,12 @@ class Empresa (models.Model):
     
     def __str__(self) -> str:
         return self.nombre
+
+    def get_jugadores(self):
+        empresa = Empresa.objects.get(encargado = self.encargado)
+        if Cancha.objects.filter(empresa=empresa):
+            jugadores = Cancha.objects.filter(empresa = empresa).values_list('jugadores', flat=True).distinct()
+            return jugadores
 
 #CANCHAS:
 class Cancha(models.Model):

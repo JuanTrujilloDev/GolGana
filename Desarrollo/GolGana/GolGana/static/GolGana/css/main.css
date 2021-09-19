@@ -41,3 +41,24 @@ a{
     color:white!important;
     
 }
+
+/* width */
+html::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  html::-webkit-scrollbar-track {
+    background: transparent!important; 
+  }
+   
+  /* Handle */
+  html::-webkit-scrollbar-thumb {
+    background: #A4E31D; 
+    border-radius: 5%;
+  }
+  
+  /* Handle on hover */
+  html::-webkit-scrollbar-thumb:hover {
+    background: #c1ff3c; 
+  }
