@@ -5,5 +5,5 @@ urlpatterns  = [
 
 path('home/', ListaEmpresas.as_view(), name="home-next"),
 path('detalle-cancha/<slug>', DetalleEmpresa.as_view(), name="detalle-cancha"),
-path('detalle-reserva/<slug>', DetalleReserva.as_view(), name="detalle-reserva"),
+path('detalle-reserva/<int:pk>', DetalleReserva.as_view(), name="detalle-reserva"),
 ]

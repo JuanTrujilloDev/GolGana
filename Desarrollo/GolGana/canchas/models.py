@@ -3,7 +3,7 @@ from django.db.models.deletion import SET_NULL
 from users.models import PerfilEmpresa, PerfilCliente
 from users.models import Ciudad, Departamento
 from PIL import Image
-from django.core.validators import MaxValueValidator, RegexValidator
+from django.core.validators import RegexValidator
 from django.utils.text import slugify
 
 # Create your models here.
@@ -36,10 +36,9 @@ class Empresa (models.Model):
     slug = models.SlugField(verbose_name="Slug", blank=True)
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(self.encargado.pk)+ "-" + slugify(self.nombre)
         super().save(*args, **kwargs)
-        self.slug = slugify(self.pk)+ "-" + slugify(self.nombre)
-        img = self.image
-        img = Image.open(img)
+        img = Image.open(self.image.path)
         size = (600,300)
         thumb = img.resize(size)
         thumb.save(self.image.path)
@@ -74,26 +73,23 @@ class Cancha(models.Model):
     cancha_conformada = models.ManyToManyField('self', verbose_name="Canchas que conforman cancha",  blank=True)
     #Imagen.
     image = models.ImageField(verbose_name="Imagen", upload_to="media/canchas/image", default="canchas/image/default-image.png")
-    slug = models.SlugField(verbose_name="Slug", unique=True, blank=True)
 
     class Meta:
         ordering = ['nombre']
 
     def save(self, *args, **kwargs):
         super(Cancha, self).save(*args, **kwargs)
-        self.slug = slugify(self.empresa.nombre) +"-" + slugify(self.pk)+ "-" + slugify(self.nombre)
         img = Image.open(self.image.path)
         size = (600,300)
         thumb = img.resize(size)
         thumb.save(self.image.path)
-        super(Cancha, self).save(*args, **kwargs)
     
     def __str__(self) -> str:
         return self.nombre
 
 class Reserva(models.Model):
     #cancha
-    cancha = models.ForeignKey(Cancha, on_delete=models.SET_NULL, null=True)
+    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE, null=True)
     #Hora y dia
     date = models.DateTimeField(verbose_name= "Fecha y Hora", null=True, auto_now_add=False, auto_now=False)
     #Persona que reservo
@@ -110,12 +106,6 @@ class Reserva(models.Model):
 
     Estado = models.IntegerField(default = Estados.DISPONIBLE, choices = Estados.choices)
 
-    slug = models.SlugField(unique=True, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.slug = "r"+ slugify(self.pk)
-        return super().save(*args, **kwargs)
 
     def __str__(self):
         return 'Reserva #: ' + str(self.pk)

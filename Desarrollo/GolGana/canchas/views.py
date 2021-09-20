@@ -1,5 +1,5 @@
-from typing import List
-from django.shortcuts import render
+from django.urls.base import reverse
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
@@ -65,7 +65,20 @@ class DetalleReserva(LoginRequiredMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         ##ESTA VISTA SOLO LA PUEDEN VER LOS DUEÑOS DE LA EMPRESA Y EL USUARIO CLIENTE
-        return super().get(request, *args, **kwargs)
+        objeto = self.get_object()
+        try:
+            usuario= objeto.persona.usuario
+        except:
+            usuario = None
+        if request.user == usuario or objeto.cancha.empresa.encargado == request.user.perfilempresa :
+            return super().get(request, *args, **kwargs)
+        else:
+            
+            #return redirect(reverse('404'))
+            return redirect(reverse('home-next'))
+
+
+        
 
 
 

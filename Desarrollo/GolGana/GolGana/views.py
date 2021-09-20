@@ -18,3 +18,6 @@ class Home(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['tittle'] = "GolGana"
         return context
+
+
+
