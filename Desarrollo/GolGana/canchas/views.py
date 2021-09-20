@@ -60,7 +60,7 @@ class DetalleReserva(LoginRequiredMixin, DetailView):
     def get_context_data(self,  **kwargs):
         context =  super().get_context_data(**kwargs)
         context['hora_final'] = self.object.date + timedelta(hours=1)
-        context['tittle'] = "Reserva #: " + self.object.slug
+        context['tittle'] = "Reserva #: " + str(self.object.pk)
         return context
 
     def get(self, request, *args, **kwargs):
