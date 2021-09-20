@@ -48,6 +48,7 @@ class DetalleEmpresa(LoginRequiredMixin, DetailView):
 class DetalleReserva(LoginRequiredMixin, DetailView):
     model = Reserva
     #Toca traer tambien los datos de la cancha.
+    template_name = 'detalle-reserva.html'
 
     def get(self, request, *args, **kwargs):
         ##ESTA VISTA SOLO LA PUEDEN VER LOS DUEÑOS DE LA EMPRESA Y EL USUARIO CLIENTE
