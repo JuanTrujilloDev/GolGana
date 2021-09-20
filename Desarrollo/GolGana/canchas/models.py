@@ -83,7 +83,7 @@ class Cancha(models.Model):
         super(Cancha, self).save(*args, **kwargs)
         self.slug = slugify(self.empresa.nombre) +"-" + slugify(self.pk)+ "-" + slugify(self.nombre)
         img = Image.open(self.image.path)
-        size = (300,300)
+        size = (600,300)
         thumb = img.resize(size)
         thumb.save(self.image.path)
         super(Cancha, self).save(*args, **kwargs)

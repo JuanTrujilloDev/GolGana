@@ -1,0 +1,101 @@
+{% extends 'GolGana/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'GolGana/css/detalle-reserva.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% include 'GolGana/navegacion-index.html' %}
+
+<section class="detalleReserva">
+            
+ 
+  
+    <div class="contactCancha row col-12 px-5"> 
+        <h4 class="linkhome text-start w-20 mt-4"><a style="text-decoration: none; color:#A4E31D;" href="{% url 'detalle-cancha' reserva.cancha.empresa.slug %}"><i class="fas fa-arrow-left me-2"></i>Regresar</a></h4>
+         <hr class="lineaLink">       
+        <div class="col-md-7 col-sm-12 text-start mt-4 ">
+          <h1>{{reserva.cancha.nombre}}</h1>
+          <div class="row col-md-12">
+            <img src="{{reserva.cancha.image.url}}" class="imgReserva">
+          </div>    
+        </div>
+
+        <div class="col-md-5 col-sm-12 text-center my-4">
+            <h1 style="color:#f3f4f5!important;">Información Reserva</h1>
+            <ul class="list-group">
+              <li class="list-group-item descripcionReserva">
+                <div class="row">
+
+                  <div class="col-md-6 text-start"><h3>Nombre de la empresa:</h3></div>
+                  <div class="col-md-6 text-end"><h4>{{reserva.cancha.empresa.nombre}}</h4></div>
+
+                </div>
+                </li>
+                <li class="list-group-item descripcionReserva">
+                  <div class="row">
+  
+                    <div class="col-md-6 text-start"><h3>Direccion:</h3></div>
+                    <div class="col-md-6 text-end"><h4>{{reserva.cancha.empresa.direccion}}</h4></div>
+  
+                  </div>
+                  </li>
+                <li class="list-group-item descripcionReserva">
+                <div class="row">
+
+                  <div class="col-md-6 text-start"><h3>Dia:</h3></div>
+                  <div class="col-md-6 text-end"><h4>{{reserva.date|date:"D d M, Y"}}</h4></div>
+
+                </div>
+                </li>
+
+                <li class="list-group-item descripcionReserva">
+                  <div class="row">
+  
+                    <div class="col-md-6 text-start"><h3>Horario:</h3></div>
+                    <div class="col-md-6 text-end"><h4>{{reserva.date.time}} - {{hora_final.time}}</h4></div>
+  
+                  </div>
+                  </li>
+                
+                  <li class="list-group-item descripcionReserva">
+                    <div class="row">
+    
+                      <div class="col-md-6 text-start"><h3>Nombre de cancha:</h3></div>
+                      <div class="col-md-6 text-end"><h4>{{reserva.cancha.nombre}}</h4></div>
+    
+                    </div>
+                    </li>
+
+                    <li class="list-group-item descripcionReserva">
+                      <div class="row">
+      
+                        <div class="col-md-6 text-start"><h3>Tipo de cancha:</h3></div>
+                        <div class="col-md-6 text-end"><h4>Futbol {{reserva.cancha.jugadores}}</h4></div>
+      
+                      </div>
+                      </li>
+
+                      <li class="list-group-item descripcionReserva">
+                        <div class="row">
+        
+                          <div class="col-md-6 text-start"><h3>Precio:</h3></div>
+                          <div class="col-md-6 text-end"><h4>30.000</h4></div>
+        
+                        </div>
+                        </li>
+                <hr class="lineaLink">
+                <a class="btn btn-primary confirmarReserva" href="#">Confirmar Reserva</a>
+              </ul>
+        </div>
+    </div>
+
+    
+
+
+
+</section>
+
+{% include 'GolGana/footer.html' %}
+{% endblock %}

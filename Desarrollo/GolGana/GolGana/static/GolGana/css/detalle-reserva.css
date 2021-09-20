@@ -1,0 +1,74 @@
+/* Navbar */
+.navbar{
+    background-color: #5B1CE3 !important;
+}
+/* Section */
+.detalleReserva{
+    min-height: 90vh !important;
+}
+/* Contacto Cancha */
+.lineaLink{
+    width: 100% !important;
+    background: #f3f4f5 !important;
+}
+.contactCancha h1,h2{
+    color: #A4E31D !important;
+    
+}
+.descripcionReserva h4{
+    font-weight: lighter !important;
+}
+
+
+/* Imagen Cancha */
+
+.imgReserva{
+    border-radius: 18px !important;
+    max-height: 53vh !important;
+    max-width: 100% !important;
+}   
+
+/* Descripcion Reserva */
+
+.descripcionReserva{
+    border: none;
+    color: #f3f4f5 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+.confirmarReserva{
+    border: none !important;
+    background: #A4E31D !important;
+    text-decoration: none !important;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.confirmarReserva:hover{
+    border: none !important;
+    background: #5B1CE3 !important;
+    text-decoration: none !important;
+}
+/* Footer */
+
+
+.footer{
+    background-color: #5B1CE3;
+    width: 100vw!important;
+}
+
+.footerIndex{
+    background-color: #5B1CE3;
+}
+
+.footerIndex img{
+    width: 9.5rem!important;
+}
+
+.footerIndex .nav-link:hover{
+    color:#A4E31D!important;
+    font-weight: bold;
+}
+
+.footerIndex .nav-link, .footerIndex p{
+    color:#f3f4f5!important;
+}

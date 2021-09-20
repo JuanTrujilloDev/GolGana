@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
 from .models import Cancha, Empresa, Reserva
 from django.db.models import Q
+from datetime import timedelta
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ class ListaEmpresas(LoginRequiredMixin, ListView):
                 queryset = self.get_queryset()
                 context['total'] = queryset.count()
                 context['query'] = query
+                context['tittle'] = "Lista de empresas"
                 return context
         return context
 
@@ -44,11 +46,22 @@ class DetalleEmpresa(LoginRequiredMixin, DetailView):
     #template de la vista
     #Aca se listan las canchas y sus horarios
 
-
+    def get_context_data(self, *args,  **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['tittle'] = "Empresa: " + self.object.slug
+        return context
+    
+    
 class DetalleReserva(LoginRequiredMixin, DetailView):
     model = Reserva
     #Toca traer tambien los datos de la cancha.
     template_name = 'detalle-reserva.html'
+
+    def get_context_data(self,  **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['hora_final'] = self.object.date + timedelta(hours=1)
+        context['tittle'] = "Reserva #: " + self.object.slug
+        return context
 
     def get(self, request, *args, **kwargs):
         ##ESTA VISTA SOLO LA PUEDEN VER LOS DUEÑOS DE LA EMPRESA Y EL USUARIO CLIENTE
