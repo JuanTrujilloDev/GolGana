@@ -30,7 +30,7 @@ class Ciudad(models.Model):
 
 
 def custom_upload_to(instance, filename):
-    old_intance = PerfilCliente.objects.get(pk=instance.pk)
+    #old_intance = PerfilCliente.objects.get(pk=instance.pk)
     return 'profiles/image/' + filename
 
 class PerfilCliente(models.Model):
@@ -42,7 +42,7 @@ class PerfilCliente(models.Model):
 )
     ##DATOS PERSONALES
 
-    usuario = models.OneToOneField(User, on_delete= models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete= models.CASCADE, related_name="perfilcliente")
     nombre = models.CharField(max_length=60, verbose_name= "Nombre Usuario")
     apellido = models.CharField(max_length=80, verbose_name="Apellido Usuario")
     slug = models.SlugField(unique=True)
@@ -89,7 +89,9 @@ class PerfilCliente(models.Model):
 ## MODELO PERFIL EMPRESA
 class PerfilEmpresa(models.Model):
     
-    usuario = models.ForeignKey(User, verbose_name="Usuario", null=True, on_delete=models.CASCADE)
+
+    #NO SE PUEDE REFERENCIAR EL USUARIO COMO FOREIGN KEY
+    usuario = models.OneToOneField(User, related_name="perfilempresa", null=True, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=60, verbose_name= "Nombre Usuario")
     apellido = models.CharField(max_length=80, verbose_name="Apellido Usuario")
     slug = models.SlugField(unique=True)
@@ -139,7 +141,7 @@ class PerfilEmpresa(models.Model):
 
 class PerfilModerador(models.Model):
     
-    usuario = models.ForeignKey(User, verbose_name="Usuario", null=True, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, related_name="perfilmoderador", null=True, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=60, verbose_name= "Nombre Usuario")
     apellido = models.CharField(max_length=80, verbose_name="Apellido Usuario")
     slug = models.SlugField(unique=True)

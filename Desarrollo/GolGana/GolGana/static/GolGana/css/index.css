@@ -10,21 +10,33 @@
     }
 }
 
+.imgperfil{
+    max-width: 50px!important;
+    max-height: 30px!important;
+    border-radius: 50% !important;
+}
+
 /*-->NAVBAR<--*/
 .navHeader .navbar{
     background-color: transparent!important;
     padding: 0% 5% 0% 5%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
 .navHeader{
     background-color: #5B1CE3;
     position: relative;
     min-width: 100vw;
+    
 }
 
 .navHeader .nav-link{
     color:#f3f4f5!important;
     font-weight: bold;
+    max-width: 150px;
+    max-height: 40px;
 }
 .navHeader .nav-link:hover{
     color: #A4E31D !important;
@@ -63,6 +75,9 @@
 
     .navHeader .imgHero{
     display: none!important;
+    }
+    .imgperfil{
+        display: none;
     }
 }
 

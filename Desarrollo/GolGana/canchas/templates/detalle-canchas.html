@@ -1,0 +1,57 @@
+{% extends 'GolGana/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'GolGana/css/detalle-cancha.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% include 'GolGana/navegacion-index.html' %}
+
+<section class="row detalleEmpresa">
+
+    <div class="detalleCancha row col-12 mt-4 px-5">
+        <div class="dem col-md-6 col-sm-12 text-start">
+          <a style="text-decoration: none; color:#A4E31D;" href="{% url 'home-next' %}"><h4><i class="fas fa-arrow-left me-2"></i>Volver</h4></a>
+          <h2 class="mt-4">{{empresa.nombre}}</h2>
+          <h3 class="descripcion">{{empresa.descripcion|linebreaks}}</h3>
+        </div>
+        <div class="col-md-6 col-sm-12 col text-center"><img class="img-fluid" src="{{empresa.image.url}}" class="imgempresa"></div>
+    </div>
+    <div class="row contactEmpresa mt-5 d-flex justify-content-around px-5">
+      <div class="col-md-4 mb-3 text-md-strat text-sm-start">
+      <h3><i class="fas fa-location-arrow "></i> Direccion: {{empresa.direccion}}</h3>
+      </div>
+      <div class="col-md-4 mb-3 text-md-center text-sm-start">
+      <h3><i class="fas fa-phone-alt"></i> Telefono: +57 {{empresa.telefono}}</h3>
+      </div>
+      <div class="col-md-4 mb-3 text-md-end text-sm-start">
+      <h3><i class="fas fa-clock "></i> Horario: {{empresa.hora_inicio}} a {{empresa.hora_final}}</h3>
+      </div>
+      <div class="col-md-4">
+      <h5>{% if empresa.get_jugadores %}
+        <div class="col-xs-4 text-md-center text-sm-start py-md-5"><h3><i class="fas fa-users"></i> Fútbol{% for n in empresa.get_jugadores %} 
+            {% if forloop.last %}
+            {{n}}
+            {% else %}
+            {{n}} |
+            {% endif %}
+        {%endfor%} </h6></div>
+        {% endif %}</h3>
+      </div>
+      
+    </div>
+    <div class="text-center py-5 detalleCancha px-5">
+      <h2><i class="fas fa-map-marked"></i> Ubicacion de la cancha</h2>
+      <iframe class="ubicacionMapa"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127506.90524750233!2d-75.26305152018095!3d2.9333023034220784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x48c1457bcd29d78!2sCancha%20Sint%C3%A9tica%20El%20Monumental!5e0!3m2!1ses!2sco!4v1632102449398!5m2!1ses!2sco" width="90%" height="700px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <div class="text-center py-5 calendarioCancha px-5">
+      <h2>Disponibilidad:</h2>
+    </div>
+  
+</section>
+
+{% include 'GolGana/footer.html' %}
+
+{% endblock %}

@@ -35,6 +35,12 @@ h2,h4{
     display:none!important;
 }
 
+.imgperfil{
+    font-size: small !important;
+    max-width: 50px;
+    max-height: 30px;
+    border-radius: 50% !important;
+}
 
 @media (max-width:1000px){
     .navbar .active{
@@ -210,16 +216,20 @@ h2,h4{
  
 }
 
-.seccionCanchas .navbar{
+.seccionCanchas .navIndex{
     background-color: #5B1CE3!important;
 }
 
 
-.seccionCanchas .nav-link{
+.seccionCanchas .navIndex .nav-link{
     color:#f3f4f5!important;
     font-weight: bold;
+    max-width: 150px!important;
+    max-height: 40px;
 }
-.seccionCanchas .nav-link:hover{
+.seccionCanchas .navIndex .nav-link:hover{
     color: #A4E31D !important;
 }
+
+
 

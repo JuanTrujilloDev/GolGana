@@ -62,3 +62,28 @@ html::-webkit-scrollbar {
   html::-webkit-scrollbar-thumb:hover {
     background: #c1ff3c; 
   }
+
+  .navIndex .nav-link{
+    color:#f3f4f5!important;
+    font-weight: bold;
+    max-width: 150px!important;
+    max-height: 40px;
+}
+ .navIndex .nav-link:hover{
+    color: #A4E31D !important;
+}
+
+  .imgperfil{
+    max-width: 50px!important;
+    max-height: 30px!important;
+    border-radius: 50% !important;
+    margin-left:5px
+}
+
+@media (max-width:1000px){
+
+ 
+    .imgperfil{
+        display: none;
+    }
+}

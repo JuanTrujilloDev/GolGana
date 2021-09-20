@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.auth.models import Group 
+from django.urls.base import reverse
 
 register = template.Library() 
 
@@ -10,3 +11,7 @@ def ver_group(user, group_name):
         return True
     else:
         return False
+
+@register.simple_tag
+def anchor(url_name, section_id):
+    return reverse(url_name) + '#' + section_id

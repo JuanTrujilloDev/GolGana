@@ -1,0 +1,69 @@
+ .contactEmpresa h2, h3, h5{
+    color: #A4E31D !important;
+}
+/* Navbar */
+.navbar{
+
+    background-color: #5B1CE3 !important;
+}
+
+
+
+/* Detalles */
+
+.detalleCancha h2{
+    color: #A4E31D !important;
+}
+
+.detalleCancha h3{
+    color: #f3f4f5 !important;
+    border: none;
+    background-color: transparent !important;
+    
+}
+
+
+@media(max-with:1000px){
+    .imgempresa{
+
+    }
+}
+/*ubicacion*/
+
+.ubicacionmapa{
+    
+    min-width: 80% !important;
+}
+
+
+.calendarioCancha{
+    color:#A4E31D;
+}
+ 
+
+/*-->footer<--*/
+
+
+.footer{
+    background-color: #5B1CE3;
+    width: 100vw!important;
+}
+
+.footerIndex{
+    background-color: #5B1CE3;
+    position: relative;
+}
+
+.footerIndex img{
+    width: 9.5rem!important;
+}
+
+.footerIndex .nav-link:hover{
+    color:#A4E31D!important;
+    font-weight: bold;
+}
+
+.footerIndex .nav-link, .footerIndex p{
+    color:#f3f4f5!important;
+}
+

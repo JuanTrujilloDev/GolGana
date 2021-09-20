@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
 from .models import Cancha, Empresa, Reserva
+from django.db.models import Q
 
 # Create your views here.
 
@@ -12,12 +13,34 @@ class ListaEmpresas(LoginRequiredMixin, ListView):
     #template de la vista
     template_name = "canchas.html"
     paginate_by = 10
+    ordering = "nombre"
     #Aca se listan las empresas 
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        if self.request.method == "GET":
+            query = self.request.GET.get("q")
+            if query:
+                queryset = self.get_queryset()
+                context['total'] = queryset.count()
+                context['query'] = query
+                return context
+        return context
 
+    def get_queryset(self):
+        if self.request.method == "GET":
+            query = self.request.GET.get("q")
+            if query:
+                queryset = Empresa.objects.filter((Q(nombre__icontains = query) | Q (ciudad__nombre__icontains = query)) | Q(cancha__jugadores = query))
+                return queryset
+        return super().get_queryset()
+        
+    
+    
 
 
 class DetalleEmpresa(LoginRequiredMixin, DetailView):
     model = Empresa
+    template_name = 'detalle-canchas.html'
     #template de la vista
     #Aca se listan las canchas y sus horarios
 
@@ -25,6 +48,10 @@ class DetalleEmpresa(LoginRequiredMixin, DetailView):
 class DetalleReserva(LoginRequiredMixin, DetailView):
     model = Reserva
     #Toca traer tambien los datos de la cancha.
+
+    def get(self, request, *args, **kwargs):
+        ##ESTA VISTA SOLO LA PUEDEN VER LOS DUEÑOS DE LA EMPRESA Y EL USUARIO CLIENTE
+        return super().get(request, *args, **kwargs)
 
 
 

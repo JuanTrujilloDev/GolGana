@@ -3,7 +3,7 @@ from django.db.models.deletion import SET_NULL
 from users.models import PerfilEmpresa, PerfilCliente
 from users.models import Ciudad, Departamento
 from PIL import Image
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, RegexValidator
 from django.utils.text import slugify
 
 # Create your models here.
@@ -16,8 +16,10 @@ class Empresa (models.Model):
 
     nombre = models.CharField(max_length=40, verbose_name="Nombre", default="Nombre Empresa")
     encargado = models.OneToOneField(PerfilEmpresa, on_delete=models.CASCADE)
-    descripcion = models.TextField(max_length= 120, verbose_name="Descripcion")
+    descripcion = models.TextField(max_length= 250, verbose_name="Descripcion")
     direccion = models.CharField(max_length=70, verbose_name="Direccion")
+    phone_regex = RegexValidator(regex='^(3)([0-9]){9}$', message = "Por favor escribe el numero en el formato aceptado sin código de área ej: 3123456789")
+    telefono = models.CharField(validators=[phone_regex], max_length=10, verbose_name="Telefono")
     ciudad = models.ForeignKey(Ciudad, null=True, on_delete=models.SET_NULL, verbose_name="Ciudad")
     departamento = models.ForeignKey(Departamento, null=True, on_delete=models.SET_NULL, verbose_name="Departamento")
     #LATITUD a partir de la direccion con API de google.
@@ -30,12 +32,12 @@ class Empresa (models.Model):
     hora_final = models.TimeField(auto_now_add=False, auto_now=False, null=True)
 
 
-    image = models.ImageField(verbose_name=True, upload_to="media\canchas\image", default="canchas\image\default-image.png")
-    slug = models.SlugField(verbose_name="Slug", unique=True, blank=True)
+    image = models.ImageField(verbose_name="Imagen", upload_to="media/canchas/image", default="canchas/image/default-image.png")
+    slug = models.SlugField(verbose_name="Slug", blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.pk)+ "-" + slugify(self.nombre)
         super().save(*args, **kwargs)
+        self.slug = slugify(self.pk)+ "-" + slugify(self.nombre)
         img = self.image
         img = Image.open(img)
         size = (600,300)
@@ -43,12 +45,13 @@ class Empresa (models.Model):
         thumb.save(self.image.path)
     
     def __str__(self) -> str:
-        return self.nombre
+        id = str(self.pk)
+        return str( id +"-"+ self.nombre)
 
     def get_jugadores(self):
         empresa = Empresa.objects.get(encargado = self.encargado)
         if Cancha.objects.filter(empresa=empresa):
-            jugadores = Cancha.objects.filter(empresa = empresa).values_list('jugadores', flat=True).distinct()
+            jugadores = Cancha.objects.filter(empresa = empresa).values_list('jugadores', flat=True).distinct().order_by('jugadores')
             return jugadores
 
 #CANCHAS:
@@ -57,21 +60,33 @@ class Cancha(models.Model):
     #Empresa asociada.
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     #Numero de jugadores.
-    jugadores = models.IntegerField(validators=[MaxValueValidator(11)], verbose_name="Numero de jugadores")
+    class NumJugadores(models.IntegerChoices):
+        FUTBOL5 = 5, '5'
+        FUTBOL6 = 6, '6',
+        FUTBOL7 = 7, '7',
+        FUTBOL8 = 8, '8',
+        FUTBOL9 = 9, '9',
+        FUTBOL10 = 10, '10',
+        FUTBOL11 = 11, '11'
+
+    jugadores = models.IntegerField( default=NumJugadores.FUTBOL5 , choices=NumJugadores.choices, verbose_name="Numero de jugadores")
     #Si es una cancha pequeña se debe poner a que cancha grande conforma
-    cancha_conformada = models.ForeignKey('self', verbose_name="Canchas que conforman cancha", on_delete=models.SET_NULL, null=True, blank=True)
+    cancha_conformada = models.ManyToManyField('self', verbose_name="Canchas que conforman cancha",  blank=True)
     #Imagen.
-    image = models.ImageField(verbose_name="Imagen", upload_to="media\canchas\image", default="canchas\image\default-image.png")
+    image = models.ImageField(verbose_name="Imagen", upload_to="media/canchas/image", default="canchas/image/default-image.png")
     slug = models.SlugField(verbose_name="Slug", unique=True, blank=True)
 
+    class Meta:
+        ordering = ['nombre']
+
     def save(self, *args, **kwargs):
+        super(Cancha, self).save(*args, **kwargs)
         self.slug = slugify(self.empresa.nombre) +"-" + slugify(self.pk)+ "-" + slugify(self.nombre)
-        super().save(*args, **kwargs)
-        img = self.image
-        img = Image.open(img)
+        img = Image.open(self.image.path)
         size = (300,300)
         thumb = img.resize(size)
         thumb.save(self.image.path)
+        super(Cancha, self).save(*args, **kwargs)
     
     def __str__(self) -> str:
         return self.nombre
@@ -83,6 +98,7 @@ class Reserva(models.Model):
     date = models.DateTimeField(verbose_name= "Fecha y Hora", null=True, auto_now_add=False, auto_now=False)
     #Persona que reservo
     persona = models.ForeignKey(PerfilCliente, on_delete=models.CASCADE, null=True, blank=True)
+
     #Estado -> Desocupada /  Ya esta activa /confirmando.
 
     class Estados(models.IntegerChoices):
@@ -97,6 +113,7 @@ class Reserva(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         self.slug = "r"+ slugify(self.pk)
         return super().save(*args, **kwargs)
 
