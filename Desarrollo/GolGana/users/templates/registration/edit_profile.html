@@ -63,9 +63,16 @@
         </div>
       </div>
       </div>
+      {% if request.user.perfilcliente %}
       <h2>Datos de facturacion:</h2>
       <hr>
+      
       <h5 class="text-muted">Actualiza tus datos de domicilio:</h5>
+      {% elif request.user.perfilempresa %}
+      <h2>Datos de contacto:</h2>
+      <hr>
+      <h5 class="text-muted">Actualiza tus datos de contacto:</h5>
+      {% endif %}
       <div class="row">
         <!-- Text input -->
         <div class="col">

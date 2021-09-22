@@ -1,0 +1,135 @@
+/* BARRAS DE NAVEGACION PERFIL */
+
+.navegacion .navbar{
+    border-bottom: 1px solid rgb(51, 51, 51) !important;
+    background-color: transparent !important;  
+}
+
+.navbar .navbar-brand{
+    color: #A4E31D !important;
+    opacity: 1!important;
+}
+
+.navegacion .navbar .nav-link{
+    color: #f3f4f5;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Nunito', sans-serif !important;
+    opacity: 1;
+    margin-left:3px;
+    margin-right: 3px;
+}
+
+.navegacion .navbar .active{
+    color:#A4E31D!important;
+}
+.navegacion .OptionMobile a{
+    text-decoration:  none !important;
+}
+
+.navegacion .navbar-nav .nav-link{
+    display:none!important;
+}
+
+
+@media (max-width:1400px){
+    .navbar .active{
+        border-bottom: none!important;
+    }
+    .image-link{
+        display: none;
+    }
+    
+    .navegacion .navbar-nav .nav-link{
+        display:table!important;
+    }
+
+    .lista_reserva  .OptionUser{
+        display:none!important;
+    }
+}
+
+.navSecundaria{
+    border-bottom: 1px solid gray;
+}
+
+.navSecundaria .nav-link{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.lista_reserva hr{
+    color:#A4E31D !important;
+    opacity: 1;
+    width: 60%;
+}
+
+.lista_reserva .btn{
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    width:100%;
+    background-color: #A4E31D !important;
+    border: none;
+}
+.lista_reserva .btn:hover{
+    font-weight: lighter !important;
+    color: #f3f4f5 !important;
+    width:100%;
+    background-color: #5B1CE3!important;
+    border: none;
+}
+
+.lista_reserva .card {
+    border: none !important;
+    background-color: transparent !important;
+    margin-right: 10px !important;
+    margin-left: 30px !important;
+}
+.lista_reserva .list-group-item{
+    border: none !important;
+    background-color: transparent !important;
+}
+.lista_reserva a{
+    font-weight: lighter !important;
+    font-family: 'Nunito', sans-serif !important;
+    color: #f3f4f5 !important;
+    text-decoration: none !important;
+}
+
+.lista_reserva a:hover{
+    color: #A4E31D !important;
+    font-weight: bold !important;
+}
+
+.lista_reserva .active{
+    color: #A4E31D !important;
+    border-left: 2px solid #A4E31D !important;
+}
+
+.lista_reserva .active a{
+    color:#A4E31D !important;
+    font-weight: bold !important;
+}
+
+
+/* Listado Reservas */
+.reservas h1,h2{
+    color: #A4E31D !important;
+}
+.reservas h3{
+    color: #f3f4f5 !important;
+}
+.lineareserva{
+    width: auto !important;
+    color:#A4E31D !important;
+}
+.reservas {
+    background: transparent !important;
+}
+.imgreserva img{
+    border-radius: 5% !important;
+    margin-bottom: 2% !important;
+    width: 100% !important;
+}
+
+

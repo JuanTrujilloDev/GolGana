@@ -42,7 +42,7 @@
             <!--LINKS PARA EL ADMINISTRADOR-->
             {% elif request.user|ver_group:"Empresa" %}
              <li class="nav-item"><a class="nav-link" href="{% url 'detalle-cancha' request.user.perfilempresa.empresa.slug %}">Mi Empresa</a></li>
-             <li class="nav-item"><a class="nav-link m-0 pe-0" href="#PERFILDELADMIN">{{request.user.username}}</a></li> 
+             <li class="nav-item"><a class="nav-link m-0 pe-0" href="{% url 'user:edit-profile-empresa' request.user.perfilempresa.slug %}">{{request.user.username}}</a></li> 
             <!--LINKS PARA EL MODERADOR-->
             {% elif request.user|ver_group:"Moderador" %}
              <li class="nav-item"><a class="nav-link" href="#PERFILDELMODERADOR">{{request.user.username}}</a></li> 

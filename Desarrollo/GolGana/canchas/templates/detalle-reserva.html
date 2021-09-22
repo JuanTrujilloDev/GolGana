@@ -1,5 +1,6 @@
 {% extends 'GolGana/base.html' %}
 {% load static %}
+{% load customtags %}
 
 {% block css %}
 <link href="{% static 'GolGana/css/detalle-reserva.css' %}" rel="stylesheet">
@@ -23,7 +24,7 @@
         </div>
 
         <div class="col-md-5 col-sm-12 text-center my-4">
-            <h1 style="color:#f3f4f5!important;">Información Reserva</h1>
+            <h1 style="color:#f3f4f5!important;">Reserva # {{reserva.pk}}</h1>
             <ul class="list-group">
               <li class="list-group-item descripcionReserva">
                 <div class="row">
@@ -85,8 +86,28 @@
         
                         </div>
                         </li>
+                        <li class="list-group-item descripcionReserva">
+                          <div class="row">
+          
+                            <div class="col-md-6 text-start"><h3>Estado:</h3></div>
+                            <div class="col-md-6 text-end"><h4>{{reserva.get_estado_display}}</h4></div>
+          
+                          </div>
+                          </li>
+                        {% if reserva.persona %}
+                        <li class="list-group-item descripcionReserva">
+                          <div class="row">
+          
+                            <div class="col-md-6 text-start"><h3>Reservado por:</h3></div>
+                            <div class="col-md-6 text-end"><h4>{{reserva.persona.nombre}} {{reserva.persona.apellido}}</h4></div>
+          
+                          </div>
+                          </li>
+                        {% endif %}
                 <hr class="lineaLink">
-                <a class="btn btn-primary confirmarReserva" href="#">Confirmar Reserva</a>
+                {% if not reserva.persona and not request.user|ver_group:"Empresa" %}
+                <a class="btn btn-primary confirmarReserva" href="{% url 'vista-reservacion' reserva.pk %}">Confirmar Reserva</a>
+                {% endif %}
               </ul>
         </div>
     </div>

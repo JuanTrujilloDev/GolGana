@@ -3,11 +3,42 @@
 
 {% block css %}
 <link href="{% static 'GolGana/css/detalle-cancha.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.css">
+{% block js %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.js'></script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'timeGridDay',
+      themeSystem: 'bootstrap',
+      slotMinTime: '{{empresa.hora_inicio | date:"H:i a"}}',
+      slotMaxTime: '{{empresa.hora_final | date:"H:i a"}}',
+      events: [
+        {% for reserva in empresa.get_reservas %}
+        {% if reserva.estado == 0 and reserva.persona == None %}
+        {
+        
+        title: "{{ reserva.cancha.nombre }}",
+        start : '{{ reserva.date | date:"Y-m-d H:i" }}',
+        end : '{{reserva.get_hora_final | date:"Y-m-d H:i"}}',
+        url : '{% url "detalle-reserva" reserva.pk %}',
+        
+        },
+        {% endif %}
+        {% endfor %}
+      ],
+    });
+    calendar.render();
+  });
+
+</script>
+{% endblock %}
 {% endblock %}
 
 {% block content %}
 {% include 'GolGana/navegacion-index.html' %}
-
 <section class="row detalleEmpresa">
 
     <div class="detalleCancha row col-12 mt-4 px-5">
@@ -26,7 +57,7 @@
       <h3><i class="fas fa-phone-alt"></i> Telefono: +57 {{empresa.telefono}}</h3>
       </div>
       <div class="col-md-4 mb-3 text-md-end text-sm-start">
-      <h3><i class="fas fa-clock "></i> Horario: {{empresa.hora_inicio}} a {{empresa.hora_final}}</h3>
+      <h3><i class="fas fa-clock "></i> Horario: {{empresa.hora_inicio | date:"H:i a"}} a {{empresa.hora_final | date:"h:i a"}}</h3>
       </div>
       <div class="col-md-4">
       <h5>{% if empresa.get_jugadores %}
@@ -48,10 +79,17 @@
 
     <div class="text-center py-5 calendarioCancha px-5">
       <h2>Disponibilidad:</h2>
+        <div id="calendar">
+
+
+        </div>
     </div>
-  
+    {% include 'GolGana/footer.html' %}
 </section>
 
-{% include 'GolGana/footer.html' %}
+
 
 {% endblock %}
+
+
+

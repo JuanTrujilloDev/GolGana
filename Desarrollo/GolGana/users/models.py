@@ -55,7 +55,7 @@ class PerfilCliente(models.Model):
     direccion = models.CharField(max_length= 70, verbose_name="Direccion")
     tipo_documento = models.CharField(max_length=300, choices = DOC_CHOICES)
     documento_regex = RegexValidator(regex='^[0-9]{6,10}$')
-    documento = models.CharField(validators=[documento_regex],max_length=13, verbose_name="Numero de documento")
+    documento = models.CharField(validators=[documento_regex],max_length=10, verbose_name="Numero de documento")
     departamento = models.ForeignKey(Departamento, on_delete= models.SET_NULL, null=True, blank=True)
     ciudad = models.ForeignKey(Ciudad, on_delete= models.SET_NULL, null=True, blank=True)
 
@@ -71,7 +71,7 @@ class PerfilCliente(models.Model):
         super(PerfilCliente, self).save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-        output_size = (300,300)
+        output_size = (600,300)
         img.thumbnail(output_size)
         img.save(self.image.path)
 

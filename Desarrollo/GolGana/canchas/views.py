@@ -1,3 +1,4 @@
+from users.models import PerfilEmpresa, PerfilCliente
 from django.urls.base import reverse
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, UpdateView
@@ -66,19 +67,36 @@ class DetalleReserva(LoginRequiredMixin, DetailView):
     def get(self, request, *args, **kwargs):
         ##ESTA VISTA SOLO LA PUEDEN VER LOS DUEÑOS DE LA EMPRESA Y EL USUARIO CLIENTE
         objeto = self.get_object()
-        try:
-            usuario= objeto.persona.usuario
+        usuario = PerfilCliente.objects.filter(usuario = request.user).first()
+        empresario = PerfilEmpresa.objects.filter(usuario = request.user).first()
+
+        if usuario or empresario:
+            if (objeto.persona != None and objeto.persona == usuario) or (empresario == objeto.empresa.encargado) or (objeto.persona == None):
+                return super().get(request, *args, **kwargs)    
+        return(redirect('home-next'))
+
+
+class VistaAuxReservacion(LoginRequiredMixin, DetailView):
+     model = Reserva  
+
+     def get(self, request, *args, **kwargs):
+        try: 
+            usuario = PerfilCliente.objects.filter(usuario = request.user).first()
         except:
             usuario = None
-        if request.user == usuario or objeto.cancha.empresa.encargado == request.user.perfilempresa :
-            return super().get(request, *args, **kwargs)
+        if usuario == None:
+            return redirect('detalle-reserva', pk = self.get_object().pk) 
         else:
-            
-            #return redirect(reverse('404'))
-            return redirect(reverse('home-next'))
-
-
-        
+            reserva = Reserva.objects.filter(persona = usuario).first()
+            if reserva:
+                if reserva.usuario == usuario:
+                    return redirect('detalle-reserva', pk = self.get_object().pk) 
+                return redirect('home-next')
+            objeto = self.get_object()
+            objeto.persona = request.user.perfilcliente
+            objeto.estado = 1
+            objeto.save()
+            return redirect('detalle-reserva', pk = self.get_object().pk) 
 
 
 
@@ -97,9 +115,8 @@ class UpdateReserva(LoginRequiredMixin, UpdateView):
     model = Reserva
     #Aca se actualizan las reservas (Para el admin)
 
-class ListaReservaciones(LoginRequiredMixin, ListView):
+class ListaReservas(LoginRequiredMixin, ListView):
     model = Reserva
-    #Aca se verian las reservaciones que estan en proceso de confirmacion o confirmadas.
 
 
 
@@ -107,15 +124,22 @@ class ListaReservaciones(LoginRequiredMixin, ListView):
 
 
 ### VISTAS DE USUARIO CLIENTE
-class MisReservas(LoginRequiredMixin, ListView):
-    model = Reserva
-    #Aca se traen las reservas que ha hecho el usuario.
-    #Esto SOLO lo puede ver el usuario
 
-class DetalleMisReservas(LoginRequiredMixin, DetailView):
-    model = Reserva
-    #Se ve el detalle de la reservacion
-    #Solo lo puede ver el usuario cliente.
+class MisReservaciones(LoginRequiredMixin, DetailView):
+    model = PerfilCliente
+    template_name = "lista_reserva.html"
+    
+    def get(self, request, *args, **kwargs):
+        if self.request.user != self.get_object().usuario:
+            return redirect(reverse('home-view'))
+        return super().get(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        perfil = self.get_object()
+        if self.request.user == self.get_object().usuario:
+            context['reservas'] = Reserva.objects.filter(persona = perfil).order_by('date')
+        return context
 
 class VistaConfirmacion(LoginRequiredMixin, DetailView):
     model = Reserva

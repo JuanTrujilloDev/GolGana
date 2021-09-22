@@ -1,0 +1,50 @@
+{% extends 'GolGana/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'GolGana/css/lista_reserva.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{% include 'registration/navegacion.html' %}
+
+<section class="lista_reserva row ">
+  {% include 'registration/menu-izquierda.html' %}
+
+  <div class="reservas col-xxl-9 col-md-12 col-sm-12">
+    <ul class="list-group list-group-flush">
+        <h1 class="px-5">Historial</h1>
+        <hr class="lineareserva">
+    {% for reserva in reservas %}
+      <li class="list-group-item container col-md-12">
+          <div class="row">
+        <div class="imgreserva col-md-4">
+            <h2>{{reserva.empresa}}</h2>
+            <img src="{{reserva.cancha.image.url}}">
+        </div>
+        <div class="dtreserva col-md-4">
+          <h3 class="mt-4">Dia: {{reserva.date | date:"D, d M Y"}} </h3>
+          <h3 class="mt-4">Horario: {{reserva.date | date:"h:i a"}} a {{reserva.get_hora_final | date:"h:i a"}}</h3>
+          <h3 class="mt-4">Precio: {{reserva.precio}}</h3>
+          <h3 class="mt-4">Estado: {{reserva.get_estado_display}}</h3>
+        </div>
+        <div class="dtreserva col-md-4">
+            <h3 class="mt-4">Dirección: {{reserva.empresa.direccion}}</h3>
+            <h3 class="mt-4">Telefono: {{reserva.empresa.telefono}}</h3>
+            <h3 class="mt-4"><a class="verreserva btn btn-primary">Ver Reservación</a></h3>
+
+            {% if reserva.estado == 1 %}
+            <h3 class="mt-4"><a class="verreserva btn btn-primary">Pagar Reservacion</a></h3>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="lineareserva">
+     {% endfor %}
+    </ul>
+  </div>
+
+
+</section>
+
+{% endblock %}

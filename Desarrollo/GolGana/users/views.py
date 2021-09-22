@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls.base import reverse_lazy, reverse
-from .forms import  LoginCaptcha, UserCreationFormWithEmail, EmailForms
+from .forms import  LoginCaptcha, UserCreationFormWithEmail, EmailForms, ProfileAdminUpdateForms
 from django.views import generic
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import Group
-from .models import User
+from .models import PerfilEmpresa, User
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from .forms import ProfileUpdateForms
@@ -99,7 +99,7 @@ class CLoginView(LoginView):
         return context 
     
 
-class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
+class ProfileClienteUpdate(LoginRequiredMixin, generic.UpdateView):
     form_class = ProfileUpdateForms
     template_name = 'registration/edit_profile.html'
     model = PerfilCliente
@@ -107,7 +107,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     ###SE CAMBIO EL GET OBJECT PORQUE TRAIA SIEMPRE AL REQUEST USER OBJECT 
     # Y NO DEBE SER ASI POR EL SLUG!!!!
     def get_success_url(self):
-        return reverse_lazy('user:edit-profile', kwargs={'slug': self.get_object().slug})
+        return reverse_lazy('user:edit-profile-cliente', kwargs={'slug': self.get_object().slug})
 
 
     def get_context_data(self, **kwargs):
@@ -126,8 +126,9 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
         object = self.get_object()
         ##REDIRIGIR A ACCESO DENEGADO!!
         grupo = Group.objects.filter(name="Cliente").first()
-        if object == request.user.perfilcliente and request.user.groups == grupo:
-            return super().get(self, request, *args, **kwargs)
+        if request.user == object.usuario :
+            if object == request.user.perfilcliente and request.user.groups == grupo:
+                return super().get(self, request, *args, **kwargs)
         return redirect(reverse('home'))
         
     
@@ -137,7 +138,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
             self.object = form.save()
             if context['email'].is_valid():
                 context['email'].save()
-        return super(ProfileUpdate, self).form_valid(form)
+        return super(ProfileClienteUpdate, self).form_valid(form)
 
 @login_required(login_url="/login")
 def socialSuccess(request):
@@ -173,6 +174,51 @@ def json_load(request):
     return redirect('home')
 
 ## ACTUALIZAR CONTRASEÑA VIEW
+
+
+## VISTA ACTUALIZAR DATOS EMPRESARIO
+
+class PerfilEmpresaUpdate(LoginRequiredMixin, generic.UpdateView):
+    form_class = ProfileAdminUpdateForms
+    model = PerfilEmpresa
+    template_name = "registration/edit_profile.html"
+
+        ###SE CAMBIO EL GET OBJECT PORQUE TRAIA SIEMPRE AL REQUEST USER OBJECT 
+    # Y NO DEBE SER ASI POR EL SLUG!!!!
+    def get_success_url(self):
+        return reverse_lazy('user:edit-profile-empresa', kwargs={'slug': self.get_object().slug})
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['email'] = EmailForms(self.request.POST, instance = self.request.user)
+        else: 
+            context['email'] = EmailForms(instance = self.request.user)
+        context["tittle"] = "Actualizacion de perfil"
+        return context
+
+
+    ##SE REDIRECCIONA SI EL USUARIO NO ES DUEÑO DEL PERFIL Y QUIERE EDITARLO
+    ## O SI NO ES CLIENTE
+    def get(self, request, *args, **kwargs):
+        object = self.get_object()
+        ##REDIRIGIR A ACCESO DENEGADO!!
+        grupo = Group.objects.filter(name="Empresa").first()
+        if request.user == object.usuario :
+            if object == request.user.perfilempresa and request.user.groups == grupo:
+                return super().get(self, request, *args, **kwargs)
+        return redirect(reverse('home'))
+        
+    
+    def form_valid(self, form):
+        context = self.get_context_data()
+        with transaction.atomic():
+            self.object = form.save()
+            if context['email'].is_valid():
+                context['email'].save()
+        return super(ProfileClienteUpdate, self).form_valid(form)
+
 
 
 

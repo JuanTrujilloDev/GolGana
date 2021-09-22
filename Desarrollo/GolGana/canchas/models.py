@@ -5,6 +5,7 @@ from users.models import Ciudad, Departamento
 from PIL import Image
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
+from datetime import timedelta
 
 # Create your models here.
 
@@ -53,6 +54,15 @@ class Empresa (models.Model):
             jugadores = Cancha.objects.filter(empresa = empresa).values_list('jugadores', flat=True).distinct().order_by('jugadores')
             return jugadores
 
+    def get_reservas(self):
+        empresa = Empresa.objects.get(encargado = self.encargado)
+        reservas = Reserva.objects.filter(empresa = empresa)
+        if reservas:
+            return reservas.order_by("date")
+            
+
+        
+
 #CANCHAS:
 class Cancha(models.Model):
     nombre = models.CharField(max_length=40, verbose_name="Nombre") #Cancha 5
@@ -88,6 +98,8 @@ class Cancha(models.Model):
         return self.nombre
 
 class Reserva(models.Model):
+    #Empresa a cargo de la reserva
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null = True)
     #cancha
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE, null=True)
     #Hora y dia
@@ -104,8 +116,13 @@ class Reserva(models.Model):
         CANCELADA = 3, 'Cancelada'
         FINALIZADA = 4, 'Finalizada'
 
-    Estado = models.IntegerField(default = Estados.DISPONIBLE, choices = Estados.choices)
+    estado = models.IntegerField(default = Estados.DISPONIBLE, choices = Estados.choices)
+    precio = models.FloatField(verbose_name="Precio", default="0")
 
 
     def __str__(self):
         return 'Reserva #: ' + str(self.pk)
+
+    def get_hora_final(self):
+        return self.date + timedelta(hours=1)
+

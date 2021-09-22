@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
-from .models import User
+from .models import PerfilEmpresa, User
 from django.forms.widgets import ClearableFileInput
 from .models import Ciudad, PerfilCliente
 from captcha.fields import ReCaptchaField
@@ -74,7 +74,32 @@ class ProfileUpdateForms(forms.ModelForm):
         
         
         ###PASAR LA CIUDAD
+class ProfileAdminUpdateForms(forms.ModelForm):
+    class Meta:
+        model = PerfilEmpresa
+        fields = ['nombre', 'apellido', 'image', 'telefono', 'direccion', 'tipo_documento', 'documento', 'departamento', 'ciudad']
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(ProfileUpdateForms, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            self.fields['ciudad'].queryset = Ciudad.objects.none() 
 
+#SI SE CREA UN PERFIL NUEVO ESTO DARA ERROR A LA HORA DE CARGAR LAS CIUDADES DEL DEPARTEMENTO 
+        if 'departamento' in self.data:
+            try:
+                departamento_id = int(self.data.get('departamento'))
+                self.fields['ciudad'].queryset = Ciudad.objects.filter(departamento_id = departamento_id).order_by('nombre')
+                
+            except(ValueError, TypeError):
+                pass
+        ###SOLUCION CUANDO LA CIUDAD ESTA NULL
+        elif self.instance.pk:
+            try:
+                self.fields['ciudad'].queryset = self.instance.departamento.ciudad_set.order_by('nombre')
+            except:
+                pass
 
 
 
