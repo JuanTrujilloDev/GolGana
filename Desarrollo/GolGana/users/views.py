@@ -217,7 +217,7 @@ class PerfilEmpresaUpdate(LoginRequiredMixin, generic.UpdateView):
             self.object = form.save()
             if context['email'].is_valid():
                 context['email'].save()
-        return super(ProfileClienteUpdate, self).form_valid(form)
+        return super(PerfilEmpresaUpdate, self).form_valid(form)
 
 
 

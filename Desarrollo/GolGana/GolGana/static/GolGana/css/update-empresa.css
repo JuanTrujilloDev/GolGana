@@ -1,0 +1,128 @@
+/* BARRAS DE NAVEGACION PERFIL */
+.navegacion .navbar{
+    border-bottom: 1px solid rgb(51, 51, 51) !important;
+    background-color: transparent !important;  
+}
+
+.navbar .navbar-brand{
+    color: #A4E31D !important;
+    opacity: 1!important;
+}
+
+.navegacion .navbar .nav-link{
+    color: #f3f4f5;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Nunito', sans-serif !important;
+    opacity: 1;
+    margin-left:3px;
+    margin-right: 3px;
+}
+
+.navegacion .navbar .active{
+    color:#A4E31D!important;
+}
+.navegacion .OptionMobile a{
+    text-decoration:  none !important;
+}
+
+.navegacion .navbar-nav .nav-link{
+    display:none!important;
+}
+
+
+@media (max-width:1000px){
+    .navbar .active{
+        border-bottom: none!important;
+    }
+    .image-link{
+        display: none;
+    }
+    
+    .navegacion .navbar-nav .nav-link{
+        display:table!important;
+    }
+
+    .editProfile .OptionUser{
+        display:none!important;
+    }
+}
+
+.navSecundaria{
+    border-bottom: 1px solid gray;
+}
+
+.navSecundaria .nav-link{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.editProfile form{
+    background-color: transparent !important;
+    border-radius: 25px;
+    padding: 0% 5% 5% 5%;
+    min-width: 60%;
+}
+
+
+.update-empresa h2, .update-empresa h6, .update-empresa h1{
+    color:#A4E31D!important;
+}
+
+.update-empresa img{
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.update-empresa label{
+    color:#f3f4f5;
+    font-weight: bold;
+}
+
+.errorlist li{
+    color:red!important;
+}
+
+.update-empresa hr{
+    color:#A4E31D !important;
+    opacity: 1;
+    width: 60%;
+}
+
+.update-empresa .btn{
+    width:100%;
+    background-color: #A4E31D !important;
+    border: none;
+}
+
+.update-empresa .card {
+    border: none !important;
+    background-color: transparent !important;
+    margin-right: 10px !important;
+    margin-left: 30px !important;
+}
+.update-empresa .list-group-item{
+    border: none !important;
+    background-color: transparent !important;
+}
+.update-empresa a{
+    font-weight: lighter !important;
+    font-family: 'Nunito', sans-serif !important;
+    color: #f3f4f5 !important;
+    text-decoration: none !important;
+}
+
+.update-empresa a:hover{
+    color: #A4E31D !important;
+    font-weight: bold !important;
+}
+
+.update-empresa .active{
+    color: #A4E31D !important;
+    border-left: 2px solid #A4E31D !important;
+}
+
+.update-empresa .active a{
+    color:#A4E31D !important;
+    font-weight: bold !important;
+}

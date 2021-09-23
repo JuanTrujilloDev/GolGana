@@ -1,0 +1,75 @@
+{% extends 'GolGana/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'GolGana/css/update-empresa.css'%}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="update-empresa">
+    <!--Barras de Navegación--> 
+    {% include 'registration/navegacion.html' %}
+    <div class="row">
+    {% include 'registration/menu-izquierda.html' %}
+    
+    <div class='formulario-empresa col-md-9 row'>
+    <form method="POST" action="." id="empresaForm" data-cities-url = "{% url 'ajax_load_cities' %}" class="col-md-9">
+    {% csrf_token %}
+        <h2>Perfil Establecimiento</h2>
+    <div class=""><img src="{{request.user.perfilempresa.empresa.image.url}}"></div>
+    <div class="">
+        <label>Descripción</label>
+        <imput type="text" name="descripcion" maxlength="250" class="" required id="descipcion"></imput>
+    </div>
+    </form>
+    <!--Cancha--> 
+    <div class="col-md-12 container">
+        <h2>Informacion de canchas</h2>
+        {% for cancha in canchas %}
+        <p style="color:white">{{cancha.nombre}}</p>
+        <img src="{{cancha.image.url}}">
+        <a href="#">Editar</a>
+        <a href="{% url 'eliminar-cancha' cancha.pk%}">Eliminar</a>
+    
+        {% endfor %}
+
+    </div>
+    </div>     
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+$("#id_departamento").change(function () {
+  const url = $("#empresaForm").attr("data-cities-url");  // get the url of the `load_cities` view
+  const depId = $(this).val();  // get the selected country ID from the HTML input
+
+  $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+      data: {
+          'id_departamento': depId      // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_ciudad").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+});
+</script>
+{% endblock %}

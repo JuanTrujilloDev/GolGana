@@ -1,3 +1,5 @@
+from .forms import UpdateEmpresaForm
+from django.views.generic.edit import CreateView, DeleteView
 from users.models import PerfilEmpresa, PerfilCliente
 from django.urls.base import reverse
 from django.shortcuts import redirect
@@ -87,7 +89,7 @@ class VistaAuxReservacion(LoginRequiredMixin, DetailView):
         if usuario == None:
             return redirect('detalle-reserva', pk = self.get_object().pk) 
         else:
-            reserva = Reserva.objects.filter(persona = usuario).first()
+            reserva = Reserva.objects.filter(pk = self.get_object().pk ,persona = usuario).first()
             if reserva:
                 if reserva.usuario == usuario:
                     return redirect('detalle-reserva', pk = self.get_object().pk) 
@@ -99,17 +101,57 @@ class VistaAuxReservacion(LoginRequiredMixin, DetailView):
             return redirect('detalle-reserva', pk = self.get_object().pk) 
 
 
-
+#actualizar las canchas
+#crear canchas
+#lista de reservas
+#crear reservas
+#actuaizar reservas
 
 #VISTAS EXCLUSIVAS EMPRESA
 class UpdateEmpresa(LoginRequiredMixin, UpdateView):
     model = Empresa
+    template_name = "update-empresa.html"
+    form_class = UpdateEmpresaForm
     #Actualizar datos de la empresa.
+    #Aca se veria las Lista de canchas.
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            empresa = Empresa.objects.get(encargado = self.request.user.perfilempresa)
+        except:
+            empresa = None
+        context['canchas'] = Cancha.objects.filter(empresa = empresa)
+        return context
 
+    def get(self, request, *args, **kwargs):
+        try:
+            perfil = PerfilEmpresa.objects.get(usuario = request.user)
+        except:
+            perfil = None
+        if perfil:
+            return super().get(request, *args, **kwargs)
+        return(redirect('home-next'))
+    
+    
+
+#-------Crear, Actualizar, Eliminar, Listar canchas-----------
 
 class UpdateCanchas(LoginRequiredMixin, UpdateView):
     model = Cancha
     #Aca se actualizan las canchas (Apartado del admin).
+
+class DeleteCanchas(LoginRequiredMixin, DeleteView):
+    model = Cancha
+    template_name = "eliminar-cancha.html"
+    
+    def get_success_url(self) -> str:
+        return redirect('update-empresa', slug = self.request.user.perfilempresa.slug)
+
+class CrearCanchas(LoginRequiredMixin, CreateView):
+    model = Cancha
+
+class CrearReserva(LoginRequiredMixin, CreateView):
+    model = Reserva
 
 class UpdateReserva(LoginRequiredMixin, UpdateView):
     model = Reserva
@@ -117,7 +159,7 @@ class UpdateReserva(LoginRequiredMixin, UpdateView):
 
 class ListaReservas(LoginRequiredMixin, ListView):
     model = Reserva
-
+#------------------------------------------------------
 
 
 

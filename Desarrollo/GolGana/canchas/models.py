@@ -5,7 +5,7 @@ from users.models import Ciudad, Departamento
 from PIL import Image
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
-from datetime import timedelta
+from datetime import timedelta, date
 
 # Create your models here.
 
@@ -56,7 +56,7 @@ class Empresa (models.Model):
 
     def get_reservas(self):
         empresa = Empresa.objects.get(encargado = self.encargado)
-        reservas = Reserva.objects.filter(empresa = empresa)
+        reservas = Reserva.objects.filter(empresa = empresa, date__gte = date.today())
         if reservas:
             return reservas.order_by("date")
             

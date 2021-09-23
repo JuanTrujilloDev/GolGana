@@ -81,7 +81,7 @@ class ProfileAdminUpdateForms(forms.ModelForm):
     
     
     def __init__(self, *args, **kwargs):
-        super(ProfileUpdateForms, self).__init__(*args, **kwargs)
+        super(ProfileAdminUpdateForms, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
             self.fields['ciudad'].queryset = Ciudad.objects.none() 
