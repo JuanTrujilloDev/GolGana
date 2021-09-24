@@ -1,7 +1,7 @@
-from .forms import UpdateEmpresaForm
+from .forms import UpdateEmpresaForm, CrearReserva, CrearCancha
 from django.views.generic.edit import CreateView, DeleteView
-from users.models import PerfilEmpresa, PerfilCliente
-from django.urls.base import reverse
+from users.models import PerfilEmpresa, PerfilCliente, User
+from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -53,6 +53,15 @@ class DetalleEmpresa(LoginRequiredMixin, DetailView):
         context = super().get_context_data(*args, **kwargs)
         context['tittle'] = "Empresa: " + self.object.slug
         return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            perfil = Empresa.objects.get(nombre= self.get_object().nombre)
+        except:
+            perfil = None
+        if self.request.user.groups.name != 'Cliente' and self.request.user != perfil.encargado.usuario:
+            return redirect(reverse('home-next'))
+        return super().get(request, *args, **kwargs)
     
     
 class DetalleReserva(LoginRequiredMixin, DetailView):
@@ -144,14 +153,41 @@ class DeleteCanchas(LoginRequiredMixin, DeleteView):
     model = Cancha
     template_name = "eliminar-cancha.html"
     
-    def get_success_url(self) -> str:
-        return redirect('update-empresa', slug = self.request.user.perfilempresa.slug)
+    def get_success_url(self):
+        return reverse_lazy('home-next')
 
 class CrearCanchas(LoginRequiredMixin, CreateView):
     model = Cancha
+    form_class = CrearCancha
+    template_name = "crear-canchas.html"
 
+    def get_success_url(self):
+        return reverse_lazy('home-next')
+
+    def form_valid(self, form):
+        cancha = form.save()
+        usuario = User.objects.get(username = self.request.user.perfilempresa)
+        perfilempresa = PerfilEmpresa.objects.get(usuario = usuario)
+        empresa = Empresa.objects.get(encargado = perfilempresa)
+        cancha.empresa = empresa
+        cancha.save()
+        return super().form_valid(form)
 class CrearReserva(LoginRequiredMixin, CreateView):
     model = Reserva
+    template_name = "crear-reservas.html"
+    form_class = CrearReserva
+
+    def get_success_url(self):
+        return reverse_lazy('home-next')
+
+    def form_valid(self, form):
+        reserva = form.save()
+        usuario = User.objects.get(username = self.request.user.perfilempresa)
+        perfilempresa = PerfilEmpresa.objects.get(usuario = usuario)
+        empresa = Empresa.objects.get(encargado = perfilempresa)
+        reserva.empresa = empresa
+        reserva.save()
+        return super().form_valid(form)
 
 class UpdateReserva(LoginRequiredMixin, UpdateView):
     model = Reserva
@@ -159,6 +195,7 @@ class UpdateReserva(LoginRequiredMixin, UpdateView):
 
 class ListaReservas(LoginRequiredMixin, ListView):
     model = Reserva
+
 #------------------------------------------------------
 
 

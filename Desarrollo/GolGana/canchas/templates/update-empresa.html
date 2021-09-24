@@ -14,27 +14,53 @@
     <div class="row">
     {% include 'registration/menu-izquierda.html' %}
     
-    <div class='formulario-empresa col-md-9 row'>
-    <form method="POST" action="." id="empresaForm" data-cities-url = "{% url 'ajax_load_cities' %}" class="col-md-9">
+    <div class='formulario-empresa col-md-12 col-xl-9 row d-flex justify-content-center mx-md-0'>
+    <form method="POST" action="." id="empresaForm" data-cities-url = "{% url 'ajax_load_cities' %}" class="col-md-12 row">
     {% csrf_token %}
-        <h2>Perfil Establecimiento</h2>
-    <div class=""><img src="{{request.user.perfilempresa.empresa.image.url}}"></div>
-    <div class="">
-        <label>Descripción</label>
-        <imput type="text" name="descripcion" maxlength="250" class="" required id="descipcion"></imput>
+    <h1>Perfil Establecimiento</h1>
+    <div class="col-md-6"> 
+        
+    <div class="mt-2"><h3>Foto Establecimiento</h3><img src="{{form.instance.image.url}}" class="empresaimg"></div>
+    <div class="mt-4">
+        <h3>Nombre:</h3>
+        {{form.nombre}}
     </div>
+    </div>
+    <div class="col-md-6 row">
+        <h3>Descripción</h3>
+        {{form.descripcion}}
+        <h3 class="mt-1">Teléfono:</h3>
+        {{form.telefono}}
+        <h3 class="mt-1">Dirección:</h3>
+        {{form.direccion}}
+        
+       
+    </div>
+    <h3 class="text-center mt-4">Horario de atención</h3>
+    <h4 class="col-md-6">Inicio:{{form.hora_inicio}} </h4> <h4 class="col-md-6">Cierre: {{form.hora_final}}</h4>
+    <h3><a class="btn btn-primary">Guardar</a></h3>
     </form>
-    <!--Cancha--> 
-    <div class="col-md-12 container">
+
+    <!--VER TODAS LAS CANCHAS DE LA EMPRESA--> 
+    <div class="canchasreserva col-md-12 container row mt-5">
         <h2>Informacion de canchas</h2>
         {% for cancha in canchas %}
-        <p style="color:white">{{cancha.nombre}}</p>
-        <img src="{{cancha.image.url}}">
+        <div class="col-md-4 m-auto">
+        <h3>{{cancha.nombre}}</h3>
+        </div>
+        <div class="col-md-4 mt-5">
+        <img src="{{cancha.image.url}}" class="imgch img-fluid">
+        </div>
+        <div class="col-md-4 m-auto">
         <a href="#">Editar</a>
         <a href="{% url 'eliminar-cancha' cancha.pk%}">Eliminar</a>
-    
+        </div>
         {% endfor %}
-
+        
+    <!--HACER LA RESERVA--> 
+    {% comment %} <a href="{% url 'crear-reserva' %}">Crear Reserva</a> {% endcomment %}
+    
+  
     </div>
     </div>     
     </div>

@@ -65,7 +65,7 @@ class Empresa (models.Model):
 
 #CANCHAS:
 class Cancha(models.Model):
-    nombre = models.CharField(max_length=40, verbose_name="Nombre") #Cancha 5
+    nombre = models.CharField(max_length=40, verbose_name="Nombre", null=True, blank=True) #Cancha 5
     #Empresa asociada.
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     #Numero de jugadores.

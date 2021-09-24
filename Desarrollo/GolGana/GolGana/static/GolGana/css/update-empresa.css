@@ -31,7 +31,7 @@
 }
 
 
-@media (max-width:1000px){
+@media (max-width:1200px){
     .navbar .active{
         border-bottom: none!important;
     }
@@ -43,7 +43,7 @@
         display:table!important;
     }
 
-    .editProfile .OptionUser{
+    .update-empresa .OptionUser{
         display:none!important;
     }
 }
@@ -57,6 +57,9 @@
     font-size: 2rem;
 }
 
+/* Formulario Update-Empresa */
+
+
 .editProfile form{
     background-color: transparent !important;
     border-radius: 25px;
@@ -69,9 +72,11 @@
     color:#A4E31D!important;
 }
 
-.update-empresa img{
-    width: 200px !important;
-    height: 200px !important;
+.update-empresa .empresaimg{
+    max-width: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden;
+    
 }
 
 .update-empresa label{
@@ -125,4 +130,25 @@
 .update-empresa .active a{
     color:#A4E31D !important;
     font-weight: bold !important;
+}
+
+.update-empresa h3,h4{
+    color: #A4E31D;
+}
+
+.update-empresa .btn{
+    color: #f3f4f5 !important;
+    background-color: #A4E31D !important;
+}
+.update-empresa .btn:hover{
+    color: #f3f4f5 !important;
+    background-color: #5B1CE3 !important;
+}
+.canchasreserva h3{
+    color: #f3f4f5 !important;
+    font-weight: lighter !important;
+
+}
+.canchasreserva .imgch{
+    width: 100% !important;
 }
